@@ -3,15 +3,16 @@ class IPLcricket{
     int m,n,o,p,q,r;
     IPLcricket(int m1,int n1,int o1,int p1,int q1,int r1){
         m=m1;n=n1;o=o1;p=p1;q=q1;r=r1;
+        //in order: total,won,lost
     }
     void played_matches(){
-        System.out.println("total matches played by two teams: "+m+p);
+        System.out.println("total matches played by two teams: "+(m+p));
     }
     void win(){
-        System.out.println("total won matches won by both the teams: "+n+q);
+        System.out.println("total won matches won by both the teams: "+(n+q));
     }
     void loss(){
-        System.out.println("total won matches lost by both the teams: "+o+r);
+        System.out.println("total won matches lost by both the teams: "+(o+r));
     }
 }
 class Sunrisers extends IPLcricket{
@@ -49,14 +50,17 @@ class Csk extends IPLcricket{
 public class Cricket {
     public static void main(String args[]){
         Scanner a=new Scanner(System.in);
+        System.out.println("enter numbers each in different line:");
         int m=a.nextInt();
         int n=a.nextInt();
         int o=a.nextInt();
         int p=a.nextInt();
         int q=a.nextInt();
         int r=a.nextInt();
-        IPLcricket[] data=new IPLcricket[1];
-        data[0]=new IPLcricket(m, n, o, p, q, r);
+        IPLcricket i=new IPLcricket(m, n, o, p, q, r);
+        i.played_matches();
+        i.win();
+        i.loss();
         Sunrisers ob2=new Sunrisers(m, n, o, p, q, r);
         Csk ob3=new Csk(m, n, o, p, q, r);
         ob2.display();

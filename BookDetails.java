@@ -44,9 +44,9 @@ public class BookDetails {
         int p2=sc.nextInt();
         ob.setData(n,a);
         ob.display();
-        m.price(p1);
+        m.price(p1);    //to just change the price of the publication
         m.display();
-        o.price(p2);
+        o.price(p2);    //to just change the price of the publication
         o.display();
         sc.close();
     }

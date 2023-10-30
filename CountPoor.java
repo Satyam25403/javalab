@@ -41,5 +41,6 @@ public class CountPoor {
             }
         }
         System.out.println("poor families:"+count);
+        sc.close();
     }
 }
