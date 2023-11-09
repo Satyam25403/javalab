@@ -60,7 +60,7 @@ public class InvoiceTest{
         Invoice i1=new Invoice();
         Invoice i2=new Invoice();
         i1.get_part_num();
-        i2.get_part_des();
+        i1.get_part_des();
         i1.get_num_of_items();
         i1.get_price_of_items();
         i1.getInvoiceAmount();
