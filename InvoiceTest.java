@@ -57,7 +57,6 @@ class Invoice {
 }
 public class InvoiceTest{
     public static void main(String args[])throws IOException{
-        BufferedReader b=new BufferedReader(new InputStreamReader(System.in));
         Invoice i1=new Invoice();
         Invoice i2=new Invoice();
         i1.get_part_num();

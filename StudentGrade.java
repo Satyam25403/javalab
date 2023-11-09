@@ -16,8 +16,9 @@ class Student{
         double v=vsum/p;
         return Math.sqrt(v);
     }
-    int[] stat=new int[10];
+    int[] stat=new int[10];     //declare an integer array
     void freq(int[] arr,int p){
+        //to calculate the marks in these ranges
         for(int i=0;i<p;i++){
             if(arr[i]>=0 && arr[i]<10){
                 stat[0]++;
