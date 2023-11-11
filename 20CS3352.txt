@@ -1,0 +1,48 @@
+Laboratory Experiments with Standard ICS and FPGA 
+1. Realization of All logic gates using universal gates. 
+a) Verification of logic gates from DIGITAL IC’S.
+b) Realization of logic gates using NAND and NOR.
+
+2. Design and Implementation of Arithmetic circuits. 
+a) Design and Implementation of half adder and half sub tractor. 
+b) Design and Implementation of full adder and full sub tractor. 
+
+3. Design and implement different types of code converters. 
+a) Design and implement i) Binary to Gray ii) Gray to Binary code 
+converters 
+b) Design and implement i) BCD to EX-3 ii) EX-3 to BCD code 
+converters. 
+
+4. Design and implementation of magnitude comparators. 
+i. Design and Implement single bit comparator. 
+ii. Design and Implement two bit comparator.
+
+5. Implementation of Decoders and encoders. 
+i. Implementation of i) 2X4 Decoder ii)3X8 Decoder iii) BCD to 
+Decimal Decoder iv) BCD to 7segment Display 
+ii. Implementation of i) 4x2 Encoder ii) Octal to Binary encoder 
+iii) Decimal to BCD encoder. 
+
+6. Implementation of Multiplexer and De Multiplexer. 
+i. Implementation of i) 2X1 MUX ii)4X1 MUX 
+ii. Implementation of i) 1X2 De MUX ii)1X4 De MUX 
+
+7. Implementation of all types of FLIP-FLOPS using gates. 
+i. Implementation of SR latch using NAND & NOR 
+ii. Implementation of SR, JK, D, T flip flops. 
+iii. Implementation of Master-Slave JK Flip flop 
+
+8. Design of Synchronous counters. 
+i. Design and implementation of synchronous up, synchronous 
+down counter and Up-down Counters . 
+ii. Design and implementation of synchronous MOD counters.
+
+9. Design of Asynchronous counters. 
+i. Design of Asynchronous up and down counters. 
+ii. Design and implementation of Asynchronous Mod counters. 
+
+10. Design of Ring-counter and Johnson counter.
+i. Design and implementation of 4-bit Ring counter. 
+ii. Design and implementation of 4-bit Johnson counter. 
+Laboratory Projects
+Reading and Writing data to EEPROM

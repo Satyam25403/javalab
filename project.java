@@ -1,4 +1,5 @@
 import java.util.*;
+import java.io.*;
 class Timetable{
     int n;
     String[] p=new String[8];   //periods

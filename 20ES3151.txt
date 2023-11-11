@@ -1,0 +1,31 @@
+Task 1 
+Apply fundamentals of java data types, variables, operators and control 
+statements to a given application.
+Task 2
+Implementation of classes and objects concepts. 
+Task 3
+Implement Arrays to a given application 
+Task 4
+Implementation of Inheritance and types of Inheritance
+Task 5
+Use String and String Tokenizer classes and develop a java application.
+Task 6
+Use interfaces and develop a java application 
+Task 7
+Create a package and access members from a package
+Task 8
+Develop a java Application using Method overloading and Method overriding
+Task 9
+Create a java application to copy content from one file to another file using I/O 
+Streams
+Task 10
+Implement Handling Exceptions to a given application.
+Task 11
+Apply Thread Capabilities on a given application 
+Task 12
+Use Collections framework and create a java application
+Task 13
+Apply Lambda functions and Streams API to a given application
+Projects:
+Design and develop an automated ballot vote system.
+Design and develop a banking application.
