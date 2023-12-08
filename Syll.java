@@ -34,6 +34,7 @@ class syllabus{
             System.out.println(s);
         }
         bf.close();
+        sc.close();
     }
 }
 public class Syll {
