@@ -15,5 +15,6 @@ public class ToTestInt {
         int num=a.nextInt();
         int result=o.square(num);
         System.out.println("square: "+result);
+        a.close();
     }
 }

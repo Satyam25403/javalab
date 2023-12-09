@@ -21,6 +21,7 @@ public class HighScore {
             else{
                 System.out.println("highscore not found");
             }
+            a.close();
         }
         catch(FileNotFoundException e){
             System.out.println(e.getMessage());
