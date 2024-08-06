@@ -43,6 +43,6 @@ class myframe extends Frame implements MouseListener{
 }
 class Mouse_Listener{
 	public static void main(String[] args){ 
-	   myframe f=new myframe();
+	   new myframe();
     }
 } 
