@@ -9,8 +9,13 @@
 //Generics:parameterized tyepes.it is possible to create classes that work with different data types
 //an entity (such as class,interface or method) that operates on a parameterized type is a generic entity
 //primitive datatypes are not supported in generic classes only (Integer,String,Character etc wrapper classes are supported)
-class GenericClass<T,E>{
+class GenericClass<T,E >{
+    //if we want to use bounded generics for class:
+    //class GenericClass<T extends Number,E extends someOtherDatatype>
 
+
+
+    
     //note that T,E can be of any types i.e. can be of some custom class types also;
     //we have not restricted the types they hold
 
@@ -37,12 +42,14 @@ class GenericClass<T,E>{
 
 }
 class Test{
+
     //similarly we can create generic methods:for creating generic methods we dont need a generic class
     //these can be used with any type of data
     //here the parameter <T> is inserted after the access modifier and before the return type
     public <T> void genericMethod(T data){
         System.out.println(data);
     }
+
 }
 //to restrict the types; we use concept of bounded generics
 public class oops11 {
@@ -93,6 +100,18 @@ public class oops11 {
 
     }
     <E> void doubleData(E data){
+        //Ingeneral type parameter can accept any datatype(except primitive types)
+
+        //BOUNDED GENERIC TYPES:we restrict only for some specific types for which the type should be bounded to
+        //use extends keyword: ex-if number is used, only the datatypes that arer children of number are allowed
+        System.out.println(data);
+    }
+    //example of Bounded generics
+    <E extends Number> void doubleNumData(E data){
+        //Ingeneral type parameter can accept any datatype(except primitive types)
+
+        //BOUNDED GENERIC TYPES:we restrict only for some specific types for which the type should be bounded to
+        //use extends keyword: ex-if number is used, only the datatypes that arer children of number are allowed
         System.out.println(data);
     }
 }
