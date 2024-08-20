@@ -216,7 +216,20 @@ public class collections {
     }
     
 }
+
+
+
+
+
+
+
+
+
+
+
 class Animal implements Comparable<Animal>{
+//comparable interface is a functional interface that contains only one method named compareTo(object):to sort elements on basis of single data member
+//return 0 if equal;positive integer if current object is greater than specified object;negative if less
     int age,weight;
     String name;
     Animal(int age,int weight,String name){
@@ -227,7 +240,14 @@ class Animal implements Comparable<Animal>{
     public String toString(){
         return name+" "+age+" "+weight;
     }
-    
+    //getters
+    public int getAge(){
+        return this.age;
+    }
+    public String getName(){
+        return this.name;
+    }
+
     @Override
     public int compareTo(Animal that) {
         //current object is this; specified object is o
@@ -247,8 +267,6 @@ class Animal implements Comparable<Animal>{
 //Comparable is used for natural sorting order:but code needs to be changed based on the usecase;
 //Comparator is used for custom sorting order:versatile and flexible use
 
-//comparable interface is a functional interface that contains only one method named compareTo(object):to sort elements on basis of single data member
-//return 0 if equal;positive integer if current object is greater than specified object;negative if less
 class MyCustomComparator implements Comparator<Animal>{
     @Override
     public int compare(Animal o1, Animal o2) {
@@ -273,5 +291,17 @@ class LC{
         //so we need to make them comparable by implementing comparable interface
         Collections.sort(dogs,new MyCustomComparator());
         System.out.println(dogs);
+
+        Collections.sort(dogs,new Comparator<Animal>() {
+            @Override
+            public int compare(Animal a,Animal b){
+                return a.name.compareTo(b.name);
+            }
+        });
+        //same thing can be done using lambda expression
+        //Collections.sort(dogs,(o1,o2)-> o1.name.compareTo((o2.name)));
+        System.out.println(dogs);
+
+        Collections.sort(dogs,Comparator.comparing(Animal::getAge).thenComparing(Animal::getName));
     }
 }
