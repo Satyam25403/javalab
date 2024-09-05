@@ -1,0 +1,166 @@
+Understanding Threads and Multithreading in Java
+What is a Thread?
+A thread is a lightweight sub-process, the smallest unit of processing.
+Threads allow a program to operate more efficiently by doing multiple things at the same time.
+Threads can be created 1.)By extending the Thread class 2.)By implementing the Runnable interface.
+What is Multithreading?
+Multithreading is a Java feature that allows concurrent execution of two or more parts of a program
+Each part of such a program is called a thread.
+Threads are light-weight processes within a process.
+
+
+
+
+Creating Threads STEPS:
+Create a class that extends Thread.
+Override the run method to define the code executed by the thread.
+Create an instance of the class and call the start method to begin execution.
+
+class MyThread extends Thread {
+    public void run() {
+        System.out.println("Thread is running");
+    }
+
+    public static void main(String[] args) {
+        MyThread t1 = new MyThread();
+        t1.start(); // Start the thread
+    }
+}
+
+
+
+Implementing the Runnable Interface STEPS:
+Create a class that implements Runnable.
+Override the run method to define the code to be executed by the thread.
+Create an instance of Thread class, passing the Runnable object to its constructor.
+Call the start method on the Thread instance to begin execution.
+
+class MyRunnable implements Runnable {
+    public void run() {
+        System.out.println("Thread is running");
+    }
+
+    public static void main(String[] args) {
+        MyRunnable myRunnable = new MyRunnable();
+        Thread t1 = new Thread(myRunnable);
+        t1.start(); // Start the thread
+    }
+}
+
+Thread Lifecycle
+New: A thread that is newly created but not yet started.
+Runnable: A thread that is ready to run and waiting for CPU time.
+Running: A thread that is currently executing.
+Blocked: A thread that is blocked and waiting for a resource.
+Terminated: A thread that has completed execution.
+
+
+Synchronization
+Synchronization is used to control the access of multiple threads to shared resources.
+The synchronized keyword can be used to ensure that only one thread accesses a resource at a time.
+
+class Counter {
+    private int count = 0;
+
+    public synchronized void increment() {
+        count++;
+    }
+
+    public int getCount() {
+        return count;
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Counter counter = new Counter();
+
+        Thread t1 = new Thread(() -> {
+            for (int i = 0; i < 1000; i++) {
+                counter.increment();
+            }
+        });
+
+        Thread t2 = new Thread(() -> {
+            for (int i = 0; i < 1000; i++) {
+                counter.increment();
+            }
+        });
+
+        t1.start();
+        t2.start();
+
+        try {
+            t1.join();
+            t2.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        System.out.println("Count: " + counter.getCount());
+    }
+}
+AI-generated code. Review and use carefully. More info on FAQ.
+Inter-thread Communication
+Threads can communicate with each other using methods like wait(), notify(), and notifyAll().
+These methods must be called from within a synchronized context.
+
+
+class SharedResource {
+    private int value = 0;
+    private boolean available = false;
+
+    public synchronized void produce(int value) {
+        while (available) {
+            try {
+                wait();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+        this.value = value;
+        available = true;
+        notify();
+    }
+
+    public synchronized int consume() {
+        while (!available) {
+            try {
+                wait();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+        available = false;
+        notify();
+        return value;
+    }
+}
+
+public class ProducerConsumer {
+    public static void main(String[] args) {
+        SharedResource resource = new SharedResource();
+
+        Thread producer = new Thread(() -> {
+            for (int i = 0; i < 10; i++) {
+                resource.produce(i);
+                System.out.println("Produced: " + i);
+            }
+        });
+
+        Thread consumer = new Thread(() -> {
+            for (int i = 0; i < 10; i++) {
+                int value = resource.consume();
+                System.out.println("Consumed: " + value);
+            }
+        });
+
+        producer.start();
+        consumer.start();
+    }
+}
+
+Additional Resources
+GeeksforGeeks on Multithreading: Detailed explanation and examples of multithreading in Java1.
+KoderHQ Java Concurrency Tutorial: Comprehensive guide on Java concurrency and multithreading2.
+Vogella Java Concurrency Tutorial: Covers parallel programming, thread pools, futures, and more3.

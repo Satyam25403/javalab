@@ -12,7 +12,7 @@ public class UDPChatClient {
             Scanner scanner = new Scanner(System.in);
 
             while (true) {
-                // Send message
+                // Send message using packet
                 System.out.print("Client: ");
                 String clientMessage = scanner.nextLine();
                 sendBuffer = clientMessage.getBytes();
@@ -29,9 +29,14 @@ public class UDPChatClient {
                 clientSocket.receive(receivePacket);
                 String serverMessage = new String(receivePacket.getData(), 0, receivePacket.getLength());
                 System.out.println("Server: " + serverMessage);
+                if (serverMessage.equalsIgnoreCase("exit")) {
+                    System.out.println("Server disconnected");
+                    break;
+                }
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 }
+                             

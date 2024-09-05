@@ -1,7 +1,6 @@
 import java.io.*;
 import java.net.*;
-import java.io.*;
-import java.net.*;
+
 
 //run with ChatServer.java with split terminals
 
@@ -9,13 +8,15 @@ import java.net.*;
 public class ChatClient {
     public static void main(String[] args) {
         try (Socket socket = new Socket("localhost", 12345)) {
+            //two readers(console, server) and one writer:
             BufferedReader input = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             PrintWriter output = new PrintWriter(socket.getOutputStream(), true);
 
             BufferedReader consoleInput = new BufferedReader(new InputStreamReader(System.in));
             String clientMessage, serverMessage;
-
+            
             while (true) {
+
                 System.out.print("Client: ");
                 clientMessage = consoleInput.readLine();
                 output.println(clientMessage);

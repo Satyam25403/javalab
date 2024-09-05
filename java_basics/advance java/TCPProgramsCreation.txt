@@ -1,0 +1,121 @@
+Understanding TCP
+TCP (Transmission Control Protocol) is a connection-oriented protocol that ensures reliable communication between the client and server.
+Guaranteed Delivery: TCP guarantees that data sent from one end will arrive at the other end in the same order.
+Use Cases:applications where reliability is crucial, such as web servers, email, and file transfers.
+
+Socket:create a client socket that connects to a server.
+ServerSocket:create a server socket that listens for incoming client connections.
+InputStream/OutputStream: Used to read from and write to the socket.
+
+
+SERVER SIDE:
+Create a ServerSocket: Bind it to a specific port to listen for incoming connections.
+Accept Connections: Use the accept method to wait for and accept client connections.
+Create I/O Streams: Use InputStream and OutputStream to read from and write to the socket.
+Process Data: Handle the data received from the client and send responses.
+Close Connections: Close the socket and streams when done.
+
+CLIENT SIDE:
+Create a Socket: Connect to the server using the server’s IP address and port.
+Create I/O Streams: Use InputStream and OutputStream to read from and write to the socket.
+Send and Receive Data: Communicate with the server by sending and receiving data.
+Close Connections: Close the socket and streams when done.
+
+
+import java.io.*;
+import java.net.*;
+import java.util.Date;
+
+public class DateAndTimeServer {
+    public static void main(String[] args) {
+        int port = 1932; // Port number the server listens on
+        try (ServerSocket serverSocket = new ServerSocket(port)) {
+            System.out.println("Server is listening on port " + port);
+
+            while (true) {
+                Socket socket = serverSocket.accept(); // Accept client connection
+                System.out.println("New client connected");
+
+                try (InputStream input = socket.getInputStream();
+                     BufferedReader reader = new BufferedReader(new InputStreamReader(input));
+                     OutputStream output = socket.getOutputStream();
+                     PrintWriter writer = new PrintWriter(output, true)) {
+
+                    String text;
+
+                    do {
+                        text = reader.readLine();
+                        System.out.println("Received: " + text);
+
+                        if (text.equalsIgnoreCase("stop")) {
+                            writer.println("Server stopping...");
+                            break;
+                        }
+
+                        String response = "Date and time is: " + new Date();
+                        writer.println(response);
+
+                    } while (!text.equalsIgnoreCase("stop"));
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                System.out.println("Client disconnected");
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+}
+
+
+
+
+import java.io.*;
+import java.net.*;
+import java.util.Scanner;
+
+public class DateClient {
+    public static void main(String[] args) {
+        String hostname = "localhost";
+        int port = 1932;
+
+        try (Socket socket = new Socket(hostname, port);
+             OutputStream output = socket.getOutputStream();
+             PrintWriter writer = new PrintWriter(output, true);
+             InputStream input = socket.getInputStream();
+             BufferedReader reader = new BufferedReader(new InputStreamReader(input));
+             Scanner scanner = new Scanner(System.in)) {
+
+            String text;
+
+            do {
+                System.out.print("Enter message: ");
+                text = scanner.nextLine();
+                writer.println(text);
+
+                if (text.equalsIgnoreCase("stop")) {
+                    break;
+                }
+
+                String response = reader.readLine();
+                System.out.println("Server: " + response);
+
+            } while (!text.equalsIgnoreCase("stop"));
+
+        } catch (UnknownHostException e) {
+            System.out.println("Server not found: " + e.getMessage());
+        } catch (IOException e) {
+            System.out.println("I/O error: " + e.getMessage());
+        }
+    }
+}
+
+
+Additional Resources
+GeeksforGeeks on Socket Programming: A comprehensive guide on socket programming in Java, including examples and explanations1.
+Baeldung’s Guide to Java Sockets: Detailed tutorial on writing client-server applications using TCP/IP in Java2.
+Oracle’s Java Networking Tutorial: Official documentation on Java networking, covering both TCP and UDP3.
+These resources should provide you with a solid foundation to write TCP-based programs in Java.
+

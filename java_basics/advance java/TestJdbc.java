@@ -7,20 +7,20 @@ public class TestJdbc {
     public static void main(String[] args) {
         try {
             // Load the JDBC driver
-            Class.forName("com.mysql.cj.jdbc.Driver");
+            // Class.forName("com.mysql.cj.jdbc.Driver");
 
             // Establish a connection
-            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/mydatabase", "username", "password");
+            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/satyam", "root", "Loknath@2534");
 
             // Create a statement
             Statement statement = connection.createStatement();
 
             // Execute a query
-            ResultSet resultSet = statement.executeQuery("SELECT * FROM yourtable");
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM dept");
 
             // Process the result set
             while (resultSet.next()) {
-                System.out.println(resultSet.getString("columnname"));
+                System.out.println(resultSet.getString(1));
             }
 
             // Close the connection
