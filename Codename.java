@@ -13,7 +13,7 @@ class CodeChecking{
         //while checking if any invalid codename is entered, call the create function again
     }
     void Checklen(){
-        while(len<=6){
+        if(len<=6){
             System.out.println("INVALID CODENAME");
             System.out.println("the length of codename should be greater than 6");
             //then again ask to enter the codename

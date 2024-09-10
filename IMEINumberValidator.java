@@ -25,5 +25,6 @@ public class IMEINumberValidator {
         else{
             System.out.println("invalid");
         }
+        s.close();
     }
 }

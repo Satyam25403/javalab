@@ -1,0 +1,30 @@
+represent graph:
+
+adjacency list: if x neighbours for a node, to find them O(x)
+
+2d adjacency matrix: a[i][j]=1 means (i,j) edge is present in graph
+here we store redundant info where edges dont exist i.e where the entries are 0:space used O(n^2)
+even if if x neighbours for a node, to find them O(V) where V>=x is no of vertices
+
+edge list: list of {src,dest,wt} (i,j,d) edges if i->j is present:this is used when we need to sort the edges in graph
+like in minimum spanning trees
+
+implicit graph:already given graph is representation of 2-d array
+
+
+
+
+
+
+we will implement graphs as an array of arrayLists
+ArrayList<Edge> graph[v];
+
+this is optimized version as there is one such operation of finding neighbours in a graph which is very frequent
+we will just access the index and start writing its neighbours with almost no complexions involved
+
+i.e at every index of this graph we will be having an arrayList: to add neighbours of a vertex i
+graph[src].add(new Edge(src,dest))
+
+static class Edge{
+    int src,dest;
+}

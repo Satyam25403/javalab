@@ -31,15 +31,15 @@ class Verification implements Number{
         }
         int flag=0;
         for(int i=2;i<=n/2;i++){
-            if(n%2==0){
+            if(n%i==0){
                 flag=1;
                 break;
             }
         }
         if(flag==0){
-                return true;
-            }
-            return false;
+            return true;
+        }
+        return false;
     }
     public boolean isarmstrong(int n){
         int r,sum=0,temp=n;

@@ -27,7 +27,8 @@ class NewThread implements Runnable{
             System.out.println("Interrupted");
         }
     }
-}public class Multithread {
+}
+public class Multithread {
     public static void main(String args[]){
         NewThread n=new NewThread("thread1", "personal record.txt");
         NewThread n1=new NewThread("thread2", "Academic record.txt");
