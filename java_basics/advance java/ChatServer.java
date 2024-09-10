@@ -1,8 +1,5 @@
 import java.io.*;
 import java.net.*;
-
-
-
 //run with ChatClient.java with split terminals
 public class ChatServer {
     public static void main(String[] args) {
@@ -20,7 +17,7 @@ public class ChatServer {
 
             while (true) {
                 clientMessage = input.readLine();
-                if (clientMessage.equalsIgnoreCase("exit")) {
+                if (clientMessage.equals("exit")) {
                     System.out.println("Client disconnected");
                     break;
                 }
@@ -29,12 +26,11 @@ public class ChatServer {
                 System.out.print("Server: ");
                 serverMessage = consoleInput.readLine();
                 output.println(serverMessage);
-                if (serverMessage.equalsIgnoreCase("exit")) {
+                if (serverMessage.equals("exit")) {
                     System.out.println("Server disconnected");
                     break;
                 }
             }
-
             socket.close();
         } catch (IOException e) {
             e.printStackTrace();

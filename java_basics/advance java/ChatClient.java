@@ -1,13 +1,10 @@
 import java.io.*;
 import java.net.*;
-
-
 //run with ChatServer.java with split terminals
-
-
 public class ChatClient {
     public static void main(String[] args) {
         try (Socket socket = new Socket("localhost", 12345)) {
+            
             //two readers(console, server) and one writer:
             BufferedReader input = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             PrintWriter output = new PrintWriter(socket.getOutputStream(), true);
@@ -20,13 +17,13 @@ public class ChatClient {
                 System.out.print("Client: ");
                 clientMessage = consoleInput.readLine();
                 output.println(clientMessage);
-                if (clientMessage.equalsIgnoreCase("exit")) {
+                if (clientMessage.equals("exit")) {
                     System.out.println("Client disconnected");
                     break;
                 }
 
                 serverMessage = input.readLine();
-                if (serverMessage.equalsIgnoreCase("exit")) {
+                if (serverMessage.equals("exit")) {
                     System.out.println("Server disconnected");
                     break;
                 }
