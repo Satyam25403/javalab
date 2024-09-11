@@ -40,7 +40,7 @@ public class FactorialServer{
 
 
         try{
-            while(!str.equals("stop")){
+            while(true){
                 str=din.readUTF();
                 if(str.equals("exit")||str.equals("stop")){
                     System.out.println("Server disconnecting");

@@ -1,7 +1,7 @@
 import java.io.*;
 import java.net.*;
 import java.util.*;
-public class client2 {
+public class MultiClientClient1 {
 public static void main(String[] args) throws UnknownHostException , IOException {
        Socket s= new Socket("localhost",4445);
        String str="";

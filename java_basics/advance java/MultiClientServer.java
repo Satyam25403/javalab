@@ -3,7 +3,7 @@ import java.io.*;
 import java.util.*;
 import java.net.ServerSocket;
 import java.net.Socket;
-public class MultiClientServer2
+public class MultiClientServer
 {
     static final int PORT_NUM = 4445;
 	public static void main(String[] args) {

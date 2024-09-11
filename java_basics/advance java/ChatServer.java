@@ -26,6 +26,7 @@ public class ChatServer {
                 System.out.print("Server: ");
                 serverMessage = consoleInput.readLine();
                 output.println(serverMessage);
+                //we dont print server message in server console
                 if (serverMessage.equals("exit")) {
                     System.out.println("Server disconnected");
                     break;

@@ -4,7 +4,7 @@ import java.net.*;
 public class ChatClient {
     public static void main(String[] args) {
         try (Socket socket = new Socket("localhost", 12345)) {
-            
+
             //two readers(console, server) and one writer:
             BufferedReader input = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             PrintWriter output = new PrintWriter(socket.getOutputStream(), true);
@@ -17,6 +17,7 @@ public class ChatClient {
                 System.out.print("Client: ");
                 clientMessage = consoleInput.readLine();
                 output.println(clientMessage);
+                //we dont print client message in client console
                 if (clientMessage.equals("exit")) {
                     System.out.println("Client disconnected");
                     break;
