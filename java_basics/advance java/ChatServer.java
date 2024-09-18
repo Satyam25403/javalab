@@ -1,40 +1,70 @@
 import java.io.*;
 import java.net.*;
+import java.util.*;
 //run with ChatClient.java with split terminals
 public class ChatServer {
-    public static void main(String[] args) {
-        try (ServerSocket serverSocket = new ServerSocket(12345)) {
-            System.out.println("Server is listening on port 12345:");
-            Socket socket = serverSocket.accept();
-            System.out.println("Client connected to server");
+    static final int PORT_NUM = 4445;
+	public static void main(String[] args) throws IOException{
+		Socket s=null;
+		ServerSocket ss2=null;
+        String str="",str2="";
+        Scanner sc=null;
+        DataInputStream din =null;
+        DataOutputStream dout=null;
+		System.out.println("Server is Ready");
+        //creating socket at server
+		try{
+		    ss2=new ServerSocket(PORT_NUM);
+            sc=new Scanner(System.in);
+		}
+		catch(Exception e){
+		    System.out.println("Server error");
+		}
 
-            //two readers(console, client) and one writer:
-            BufferedReader input = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-            PrintWriter output = new PrintWriter(socket.getOutputStream(), true);
 
-            BufferedReader consoleInput = new BufferedReader(new InputStreamReader(System.in));
-            String clientMessage, serverMessage;
+        //accept connection from client
+		try{
+		    s=ss2.accept();
+		    System.out.println("Request Accepted");
+            din=new DataInputStream(s.getInputStream());
+            dout=new DataOutputStream(s.getOutputStream());
+		}
+		catch(Exception e){
+		    System.out.println("Connection Error");
+		}
 
-            while (true) {
-                clientMessage = input.readLine();
-                if (clientMessage.equals("exit")) {
-                    System.out.println("Client disconnected");
+
+
+        try{
+            while(true){
+                str=din.readUTF();
+                System.out.println("Received from client  ::"+str);
+                if(str.equals("exit")||str.equals("stop")){
+                    System.out.println("Server disconnecting");
                     break;
                 }
-                System.out.println("Client: " + clientMessage);
-
-                System.out.print("Server: ");
-                serverMessage = consoleInput.readLine();
-                output.println(serverMessage);
-                //we dont print server message in server console
-                if (serverMessage.equals("exit")) {
-                    System.out.println("Server disconnected");
+                
+                
+                
+                System.out.println("Server:");
+                str2=sc.nextLine();
+                System.out.println("Sent to server ::"+str2);
+                if(str2.equals("exit")||str2.equals("stop")){
+                    System.out.println("Client disconnecting");
                     break;
                 }
+                dout.writeUTF(str2);
+                dout.flush();
             }
-            socket.close();
-        } catch (IOException e) {
-            e.printStackTrace();
+        }catch(Exception e){
+            System.out.println("Server stopped ");
         }
-    }
+        finally{
+            sc.close();din.close();dout.close();s.close();
+        }
+
+
+	}
+
+    
 }

@@ -1,40 +1,38 @@
 import java.io.*;
 import java.net.*;
+import java.util.*;
 //run with ChatServer.java with split terminals
 public class ChatClient {
-    public static void main(String[] args) {
-        try (Socket socket = new Socket("localhost", 12345)) {
-
-            //two readers(console, server) and one writer:
-            BufferedReader input = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-            PrintWriter output = new PrintWriter(socket.getOutputStream(), true);
-
-            BufferedReader consoleInput = new BufferedReader(new InputStreamReader(System.in));
-            String clientMessage, serverMessage;
-            
-            while (true) {
-
-                System.out.print("Client: ");
-                clientMessage = consoleInput.readLine();
-                output.println(clientMessage);
-                //we dont print client message in client console
-                if (clientMessage.equals("exit")) {
-                    System.out.println("Client disconnected");
-                    break;
-                }
-
-                serverMessage = input.readLine();
-                if (serverMessage.equals("exit")) {
-                    System.out.println("Server disconnected");
-                    break;
-                }
-                System.out.println("Server: " + serverMessage);
+    public static void main(String[] args) throws UnknownHostException , IOException {
+        Socket s= new Socket("localhost",4445);
+        String str="";
+        System.out.println("connected to server");
+        Scanner sc=new Scanner(System.in);
+        DataOutputStream dos=new DataOutputStream(s.getOutputStream());
+        DataInputStream dis=new DataInputStream(s.getInputStream());
+        while(true){
+            System.out.println("Client:");
+            str=sc.nextLine();
+            System.out.println("Sent to server ::"+str);
+            if(str.equals("exit")||str.equals("stop")){
+                System.out.println("Client disconnecting");
+                break;
             }
+            dos.writeUTF(str);  //to write string in a modified utf-8 format to outputstream
+            dos.flush();
 
-            socket.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+
+            
+            String str2=dis.readUTF();
+            System.out.println("Received from server  ::str2");
+            if(str2.equals("exit")||str2.equals("stop")){
+                System.out.println("Client disconnecting");
+                break;
+            }
+	    }
+		s.close();dis.close(); dos.close();sc.close();
+	
     }
-}
 
+    
+}

@@ -12,7 +12,7 @@ SERVER SIDE:
 Create a ServerSocket: Bind it to a specific port to listen for incoming connections.
 Accept Connections: Use the accept method to wait for and accept client connections.
 Create I/O Streams: Use InputStream and OutputStream to read from and write to the socket.
-Process Data: Handle the data received from the client and send responses.
+Process(send or receive) Data: Handle the data received from the client and send responses.
 Close Connections: Close the socket and streams when done.
 
 CLIENT SIDE:

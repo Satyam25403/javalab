@@ -18,7 +18,6 @@ public class UDPChatClient {
                 sendBuffer = clientMessage.getBytes();
                 DatagramPacket sendPacket = new DatagramPacket(sendBuffer, sendBuffer.length, serverAddress, 12345);
                 clientSocket.send(sendPacket);
-
                 if (clientMessage.equalsIgnoreCase("exit")) {
                     System.out.println("Client disconnected");
                     break;

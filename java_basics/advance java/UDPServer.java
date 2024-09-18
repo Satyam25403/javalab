@@ -16,9 +16,9 @@ public class UDPServer {
                 // Receive packet and process
                 DatagramPacket receivePacket = new DatagramPacket(receiveBuffer, receiveBuffer.length);
                 serverSocket.receive(receivePacket);
+
                 String clientMessage = new String(receivePacket.getData(), 0, receivePacket.getLength());
                 System.out.println("Client: " + clientMessage);
-
                 if (clientMessage.equalsIgnoreCase("exit")) {
                     System.out.println("Client disconnected");
                     break;

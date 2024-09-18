@@ -1,4 +1,3 @@
-/*Design a multi threaded Client/Server application with TCP stream sockets.*/
 import java.io.*;
 import java.util.*;
 import java.net.ServerSocket;
@@ -48,8 +47,7 @@ public class FactorialServer{
                 }
                 System.out.println("Received from client  ::"+str);
                 try{
-                    int num=Integer.parseInt(str);
-                    str2=Integer.toString(fact(num));
+                    str2=Integer.toString(fact(Integer.parseInt(str)));
                 }
                 catch(NumberFormatException e){
                     str2="Invalid input.Please enter a valid input";
