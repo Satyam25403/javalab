@@ -88,6 +88,7 @@ public class MaxDepthOfBinaryTree {
                 arr[i]=Integer.parseInt(in);
             }
         }
+        
         TreeNode root=constructTree(arr);
 
         int maxDepth = maxDepth(root);

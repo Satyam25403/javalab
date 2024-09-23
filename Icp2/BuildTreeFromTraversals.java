@@ -1,4 +1,6 @@
 import java.util.LinkedList;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Queue;
 import java.util.Scanner;
 class TreeNode{
@@ -57,6 +59,34 @@ public class BuildTreeFromTraversals {
             }
         }
         System.out.println(res);
+    }
+    public List<List<Integer>> levelOrder(TreeNode root) {
+        List<List<Integer>> res=new ArrayList<>();
+        if(root==null){
+            return res;
+        }
+        Queue<TreeNode> lev=new LinkedList<>();
+        lev.add(root);
+        while(!lev.isEmpty()){
+            int levelSize=lev.size();
+            List<Integer> levelNodes=new ArrayList<>();
+            for(int i=0;i<levelSize;i++){
+                TreeNode curr=lev.poll();
+                if(curr!=null){
+                    levelNodes.add(curr.val);
+                    if(curr.left!=null){
+                        lev.add(curr.left);
+                    }
+                    if(curr.right!=null){
+                        lev.add(curr.right);
+                    }
+                    
+                    
+                }
+            }
+            res.add(levelNodes);
+        }
+        return res;
     }
     public static void main(String[] args) {
         Scanner sc=new Scanner(System.in);

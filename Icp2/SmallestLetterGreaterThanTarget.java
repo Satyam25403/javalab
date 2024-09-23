@@ -2,10 +2,9 @@ import java.util.Scanner;
 
 public class SmallestLetterGreaterThanTarget {
     public static void main(String[] args){
-        int n;
         Scanner sc = new Scanner(System.in);
         System.out.println("Enter the number of elements in the array");
-        n = sc.nextInt();
+        int n= sc.nextInt();
         char[] a = new char[n];
         System.out.println("Enter the target letter");
         char tar = sc.next().charAt(0);
@@ -19,7 +18,7 @@ public class SmallestLetterGreaterThanTarget {
         if (result != '\0') {
             System.out.println("The smallest letter greater than " + tar + " is " + result);
         } else {
-            System.out.println("No letter greater than " + tar + " found.");
+            System.out.println("No such letter found.");
         }
     }
 
@@ -28,6 +27,7 @@ public class SmallestLetterGreaterThanTarget {
         for (char c : a) {
             if (c > tar) {
                 if (smallest == '\0' || c < smallest) {
+                    //if smallest has not been initialized yet or we find a smaller character, update
                     smallest = c;
                 }
             }

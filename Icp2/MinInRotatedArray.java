@@ -4,19 +4,19 @@ class MinInRotatedArray{
         Scanner sc=new Scanner(System.in);
         int n=sc.nextInt();
         int[] a=new int[n];
-        for(int i=0;i<n;i++)
-        {
+        for(int i=0;i<n;i++){
             a[i]=sc.nextInt();
         }
-        System.out.println(Arrays.toString(a));
+
+        //in O(n) complexity
         int k=a[0];
-        for(int i=0;i<a.length;i++)
-        {
-            if(a[i]<k)
-            {
+        for(int i=0;i<a.length;i++){
+            if(a[i]<k){
                 k=a[i];
             }
         }
         System.out.println(k);
+
+        //in O(logn) complexity ??
     }
 }

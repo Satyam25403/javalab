@@ -1,8 +1,14 @@
+import java.util.Scanner;
+
 public class PeakElement {
-    //own
     public static void main(String[] args) {
-        int a[]={1,2,1,3,5,6,4};
-        System.out.println(peak(a));
+        Scanner sc=new Scanner(System.in);
+        int n=sc.nextInt();
+        int[]a=new int[n]; 
+        for(int i=0;i<n;i++){
+            a[i]=sc.nextInt();
+        }
+        System.out.println("Fist peak element present at index:"+peak(a));
 
         
     }

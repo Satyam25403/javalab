@@ -1,61 +1,20 @@
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Scanner;
+import java.util.ArrayList;
 class TreeNode{
     int val;
     TreeNode left,right;
     TreeNode(int val){
         this.val=val;
     }
-    TreeNode(int val,TreeNode left,TreeNode right){
-        this.val=val;
-        this.left=left;
-        this.right=right;
-    }
 }
-public class InvertBinaryTree {
-    public static TreeNode invert(TreeNode root){
-        if(root==null){
-            return root;
-        }
-        //invert the children of current node
-        TreeNode temp=root.left;
-        root.left=root.right;
-        root.right=temp;
-
-        //recursively invert subtrees of children node
-        invert(root.left);
-        invert(root.right);
-        return root;
-
-    }
-    public static void levelOrderTraversal(TreeNode root){
-        if(root==null){
-            return;
-        }
-        Queue<TreeNode> q=new LinkedList<>();
-        q.add(root);
-
-        while(!q.isEmpty()){
-            TreeNode curr=q.poll();
-            System.out.print(curr.val+" ");
-            //display node content and enqueue left and right children
-
-            if(curr.left!=null){
-                q.add(curr.left);
-            }
-            if(curr.right!=null){
-                q.add(curr.right);
-            }
-
-        }
-    }
+public class IsValidBinarySearchTree {
     static TreeNode constructTree(Integer[] arr){
         if(arr.length==0||arr[0]==null){
             return null;
         }
         TreeNode root=new TreeNode(arr[0]);
-
         //use a queue to keep track of the nodes while constructing a tree
         Queue<TreeNode> q=new LinkedList<>();
         q.add(root);
@@ -79,9 +38,29 @@ public class InvertBinaryTree {
         }
         return root;
     }
+    
+    //if inorder traversal contains whole ascending order elements,it is valid tree
+    static void inorder(TreeNode root,ArrayList<Integer> a){
+        if(root!=null){
+            inorder(root.left,a);
+            a.add(root.val);
+            inorder(root.right,a);
+        }
+    }
+    static boolean isValidBST(TreeNode root){
+        ArrayList<Integer> a=new ArrayList<>();
+        inorder(root,a);
+        for(int i=0;i<a.size()-1;i++){
+            if(a.get(i)>=a.get(i+1)){
+                return false;
+            }
+        }
+        return true;
+    }
+    
     public static void main(String[] args) {
-        Scanner sc=new Scanner(System.in);
 
+        Scanner sc=new Scanner(System.in);
         System.out.println("enter number:");
         int n=sc.nextInt();
         Integer[] arr=new Integer[n];
@@ -95,9 +74,8 @@ public class InvertBinaryTree {
                 arr[i]=Integer.parseInt(in);
             }
         }
-
         TreeNode root=constructTree(arr);
-        root=invert(root);
-        levelOrderTraversal(root);      //nothing but the array representation of the tree when printed
+        
+        System.out.println("Is Binary search tree: " + isValidBST(root)); 
     }
 }
