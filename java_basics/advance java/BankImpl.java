@@ -1,5 +1,5 @@
-import java.rmi.RemoteException;
-import java.rmi.server.UnicastRemoteObject;
+import java.rmi.*;
+import java.rmi.server.*;
 
 public class BankImpl extends UnicastRemoteObject implements Bank {
     private double balance;

@@ -1,5 +1,5 @@
-import java.rmi.Naming;
-import java.rmi.registry.LocateRegistry;
+import java.rmi.*;
+import java.rmi.registry.*;
 
 public class BankServer {
     public static void main(String[] args) {

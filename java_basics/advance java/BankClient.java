@@ -1,5 +1,5 @@
-import java.rmi.Naming;
-import java.util.Scanner;
+import java.rmi.*;
+import java.util.*;
 
 public class BankClient {
     public static void main(String[] args) {

@@ -1,6 +1,4 @@
-import java.net.DatagramPacket;
-import java.net.DatagramSocket;
-import java.net.InetAddress;
+import java.net.*;
 import java.util.Scanner;
 
 public class UDPChatClient {
@@ -18,7 +16,7 @@ public class UDPChatClient {
                 sendBuffer = clientMessage.getBytes();
                 DatagramPacket sendPacket = new DatagramPacket(sendBuffer, sendBuffer.length, serverAddress, 12345);
                 clientSocket.send(sendPacket);
-                if (clientMessage.equalsIgnoreCase("exit")) {
+                if (clientMessage.equals("exit")) {
                     System.out.println("Client disconnected");
                     break;
                 }
@@ -28,7 +26,7 @@ public class UDPChatClient {
                 clientSocket.receive(receivePacket);
                 String serverMessage = new String(receivePacket.getData(), 0, receivePacket.getLength());
                 System.out.println("Server: " + serverMessage);
-                if (serverMessage.equalsIgnoreCase("exit")) {
+                if (serverMessage.equals("exit")) {
                     System.out.println("Server disconnected");
                     break;
                 }

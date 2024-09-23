@@ -1,5 +1,4 @@
-import java.rmi.Remote;
-import java.rmi.RemoteException;
+import java.rmi.*;
 
 public interface Bank extends Remote {
     void deposit(double amount) throws RemoteException;
