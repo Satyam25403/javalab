@@ -53,6 +53,7 @@ public class SortedListToBST {
             slow = slow.next;
             fast = fast.next.next;
         }
+        //fast reached last node and slow has reached middle of list
 
         // Disconnect the left half from the middle
         if (prev != null) {
@@ -71,7 +72,7 @@ public class SortedListToBST {
 
         while(!q.isEmpty()){
             TreeNode curr=q.poll();
-            System.out.print(curr.toString());
+            System.out.print(curr.val+" ");
 
             if(curr.left!=null){
                 q.add(curr.left);
@@ -79,6 +80,7 @@ public class SortedListToBST {
             if(curr.right!=null){
                 q.add(curr.right);
             }
+            
 
         }
     }

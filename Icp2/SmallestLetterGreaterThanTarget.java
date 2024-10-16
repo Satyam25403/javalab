@@ -23,16 +23,20 @@ public class SmallestLetterGreaterThanTarget {
     }
 
     public static char findSmallestLetterGreaterThanTarget(char[] a, char tar) {
-        char smallest = '\0'; // Initialize with null character
+        char smallest = a[0],result='\0'; //Assume first letter to be smallest initially and  result to hold if a greater letter is found
         for (char c : a) {
             if (c > tar) {
-                if (smallest == '\0' || c < smallest) {
+                if (result == '\0' || c < result) {
                     //if smallest has not been initialized yet or we find a smaller character, update
-                    smallest = c;
+                    result = c;
                 }
             }
+            //simultaneously keep treack of smallest letter
+            if(c<smallest){
+                smallest=c;
+            }
         }
-        return smallest;
+        return result=='\0'?smallest:result;
     }
 }
 
