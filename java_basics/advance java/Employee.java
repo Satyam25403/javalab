@@ -5,8 +5,8 @@ import java.sql.*;
 
 @SuppressWarnings("serial")
 class Employee extends JFrame {
-    JLabel l1, l2, l3, l4, l5, l6, l7, l8, l9, ins, del, sel, d1, d2, det;
-    JTextField tx1, tx2, tx3, tx4, tx5, tx6, tx7, t1, t2, t3;
+    JLabel l1, l2, l3, l4, l5,l6, ins, d1, d2;
+    JTextField tx1, tx2, tx3, tx4, tx7, t1, t2, t3;
     JTextArea ta1, ta2;
     JButton b1, b2, b3;
 
@@ -16,11 +16,11 @@ class Employee extends JFrame {
 
         // Insert Record Section
         ins = new JLabel("Insert record in table");
-        ins.setBounds(90, 20, 200, 20);
+        ins.setBounds(90, 20, 200, 20);         //setBounds(int x,int y,int width,int height);
 
         l1 = new JLabel("Employee Name:");
         l1.setBounds(50, 50, 100, 20);
-        tx1 = new JTextField(30);
+        tx1 = new JTextField(30);               //JTextField(int columns)
         tx1.setBounds(150, 50, 150, 20);
 
         l2 = new JLabel("Employee ID:");
@@ -30,7 +30,7 @@ class Employee extends JFrame {
 
         l3 = new JLabel("Address:");
         l3.setBounds(50, 150, 100, 20);
-        ta1 = new JTextArea(2, 2);
+        ta1 = new JTextArea(2, 2);              //JTextArea textArea3 = new JTextArea(int rows,int cols);
         ta1.setBounds(150, 150, 150, 30);
 
         l4 = new JLabel("Phone number:");
@@ -43,21 +43,16 @@ class Employee extends JFrame {
         tx4 = new JTextField(30);
         tx4.setBounds(150, 250, 150, 20);
 
-        l6 = new JLabel("DA:");
-        l6.setBounds(50, 300, 100, 20);
-        tx5 = new JTextField(30);
-        tx5.setBounds(150, 300, 150, 20);
-
-        l7 = new JLabel("HRA:");
-        l7.setBounds(50, 350, 100, 20);
-        tx6 = new JTextField(25);
-        tx6.setBounds(150, 350, 150, 20);
-
         b1 = new JButton("INSERT");
         b1.setBounds(120, 380, 100, 30);
 
         tx7 = new JTextField(25);
         tx7.setBounds(100, 420, 150, 20);
+
+        l6 = new JLabel("Employee Details:");
+        l6.setBounds(330,200,200,20);
+        ta2 = new JTextArea(20,10);
+        ta2.setBounds(330,240,600,200);
 
         this.add(ins);
         this.add(l1);
@@ -70,12 +65,11 @@ class Employee extends JFrame {
         this.add(tx3);
         this.add(l5);
         this.add(tx4);
-        this.add(l6);
-        this.add(tx5);
-        this.add(l7);
-        this.add(tx6);
+    
         this.add(b1);
         this.add(tx7);
+        this.add(l6);
+        this.add(ta2);
 
         b1.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent a) {
@@ -85,138 +79,25 @@ class Employee extends JFrame {
                     String area = ta1.getText();
                     long phno = Long.parseLong(tx3.getText());
                     int salary = Integer.parseInt(tx4.getText());
-                    int da = Integer.parseInt(tx5.getText());
-                    int hra = Integer.parseInt(tx6.getText());
-
-                    Class.forName("com.mysql.cj.jdbc.Driver");
-                    Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/mydb", "root", "root");
-                    PreparedStatement st = con.prepareStatement("INSERT INTO empdetails (name, id, area, phno, salary, da, hra) VALUES (?, ?, ?, ?, ?, ?, ?)");
-                    st.setString(1, name);
-                    st.setInt(2, id);
-                    st.setString(3, area);
-                    st.setLong(4, phno);
-                    st.setInt(5, salary);
-                    st.setInt(6, da);
-                    st.setInt(7, hra);
-
-                    st.executeUpdate();
+        
                     tx7.setText("Record Inserted");
-                    st.close();
-                    con.close();
+
+                    
+                    ta2.setText("Employee Name: " + name + "\n" +
+                                "Employee ID: " + id + "\n" +
+                                "Address: " +area + "\n" +
+                                "Phone number: " + phno + "\n" +
+                                "Basic salary: " + salary + "\n");
+                    
                 } catch (NumberFormatException e) {
                     tx7.setText("Invalid Input");
-                } catch (SQLIntegrityConstraintViolationException e) {
-                    tx7.setText("Duplicate ID..error");
-                } catch (Exception e) {
+                }catch (Exception e) {
                     tx7.setText("Record can't be Inserted");
                     System.out.println(e);
                 }
             }
         });
 
-        // Delete Record Section
-        del = new JLabel("Delete record in table");
-        del.setBounds(390, 20, 200, 20);
-
-        d1 = new JLabel("Employee ID:");
-        d1.setBounds(330, 80, 100, 20);
-        t1 = new JTextField(25);
-        t1.setBounds(420, 80, 150, 20);
-
-        b2 = new JButton("DELETE");
-        b2.setBounds(400, 130, 100, 30);
-        t2 = new JTextField(25);
-        t2.setBounds(370, 170, 150, 20);
-
-        this.add(del);
-        this.add(d1);
-        this.add(t1);
-        this.add(b2);
-        this.add(t2);
-
-        b2.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent a) {
-                try {
-                    int id1 = Integer.parseInt(t1.getText());
-
-                    Class.forName("com.mysql.cj.jdbc.Driver");
-                    Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/mydb", "root", "root");
-                    PreparedStatement st = con.prepareStatement("DELETE FROM empdetails WHERE id=?");
-                    st.setInt(1, id1);
-                    int n = st.executeUpdate();
-
-                    if (n != 0) {
-                        t2.setText("Record deleted");
-                    } else {
-                        t2.setText("Record can't be deleted");
-                    }
-                    st.close();
-                    con.close();
-                } catch (NumberFormatException e) {
-                    t2.setText("Invalid Input");
-                } catch (Exception e) {
-                    t2.setText("Record can't be deleted");
-                    System.out.println(e);
-                }
-            }
-        });
-
-        // Select Record Section
-        sel = new JLabel("Select record in table");
-        sel.setBounds(670, 20, 200, 20);
-
-        d2 = new JLabel("Employee ID:");
-        d2.setBounds(620, 80, 100, 20);
-        t3 = new JTextField(25);
-        t3.setBounds(720, 80, 150, 20);
-
-        b3 = new JButton("SELECT");
-        b3.setBounds(680, 130, 100, 30);
-
-        det = new JLabel("Employee Details:");
-        det.setBounds(330, 200, 200, 20);
-        ta2 = new JTextArea(20, 10);
-        ta2.setBounds(330, 240, 600, 200);
-
-        this.add(sel);
-        this.add(d2);
-        this.add(t3);
-        this.add(b3);
-        this.add(det);
-        this.add(ta2);
-
-        b3.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent a) {
-                try {
-                    int id1 = Integer.parseInt(t3.getText());
-
-                    Class.forName("com.mysql.cj.jdbc.Driver");
-                    Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/mydb", "root", "root");
-                    PreparedStatement st = con.prepareStatement("SELECT * FROM empdetails WHERE id=?");
-                    st.setInt(1, id1);
-                    ResultSet rs = st.executeQuery();
-
-                    if (rs.next()) {
-                        ta2.setText("Employee Name: " + rs.getString("name") + "\n" +
-                                "Employee ID: " + rs.getInt("id") + "\n" +
-                                "Address: " + rs.getString("area") + "\n" +
-                                "Phone number: " + rs.getLong("phno") + "\n" +
-                                "Basic salary: " + rs.getInt("salary") + "\n" +
-                                "DA: " + rs.getInt("da") + "\n" +
-                                "HRA: " + rs.getInt("hra"));
-                    } else {
-                        ta2.setText("Record not found");
-                    }
-                    st.close();
-                    con.close();
-                } catch (NumberFormatException e) {
-                    ta2.setText("Invalid Input..Enter valid Employee ID");
-                } catch (Exception e) {
-                    ta2.setText("Record not found");
-                    System.out.println(e);
-                }
-            }
-        });
     }
 
     public static void main(String[] args) {

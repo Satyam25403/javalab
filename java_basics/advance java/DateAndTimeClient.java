@@ -34,14 +34,7 @@ class DateAndTimeClient {
 
         }catch (Exception e) {
             System.out.println("Error at client"); // Print an error message if an exception occurs
-        }finally {
-            if (socket != null) {
-                socket.close(); // Close the socket if it is not null
-            }
-            if(sc!=null)
-            {
-            	sc.close();
-            }
         }
+        
     }
 }

@@ -36,8 +36,6 @@ class LevelOrderTraversal{
                     if(curr.right!=null){
                         lev.add(curr.right);
                     }
-                    
-                    
                 }
             }
             res.add(levelNodes);

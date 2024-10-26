@@ -42,28 +42,62 @@ class CeilTheFloor {
         int target = sc.nextInt(); // Target value
 
         // Initialize floor and ceil to -1 (will change once valid values are found)
-        int floor = -1, ceil = -1;
+        int floor = 0, ceil = 0;
 
         // Loop to find the floor and ceil
         for (int i = 0; i < n; i++) {
             if (arr[i] <= target) {
                 // If the current element is smaller than or equal to target, it's a potential floor
-                if (floor == -1 || arr[i] > floor) {
+                if (floor == 0 || arr[i] > floor) {
                     floor = arr[i];
                 }
             }
 
             if (arr[i] >= target) {
                 // If the current element is larger than or equal to target, it's a potential ceil
-                if (ceil == -1 || arr[i] < ceil) {
+                if (ceil == 0 || arr[i] < ceil) {
                     ceil = arr[i];
                 }
             }
         }
-
-        // Print the floor and ceil values
-        System.out.print("Floor: " + floor + " Ceil: " + ceil);
-
+        if(ceil!=0)
+            System.out.println(ceil);
+        else
+            System.out.println(-1);
+        if(floor!=0)
+            System.out.println(floor);
+        else
+            System.out.println(-1);
         sc.close(); // Close the scanner
     }
 }
+
+// int c=0,z=0;
+
+// for(int i=0;i<n;i++)
+// {
+// if(arr[i]<=x)
+// {
+//     if(c==0|| arr[i]>c)
+//     c=arr[i];
+// }
+// }
+// for(int i=0;i<n;i++)
+// {
+// if(arr[i]>=x)
+// {
+// if(z==0 || arr[i]<z)
+// z=arr[i];
+// }
+// }
+// if(c!=0)
+// System.out.println(c);
+// else
+// System.out.println(-1);
+// if(z!=0)
+// System.out.println(z);
+// else
+// System.out.println(-1);
+
+// }
+// }

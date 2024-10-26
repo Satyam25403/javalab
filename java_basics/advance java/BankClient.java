@@ -8,15 +8,30 @@ public class BankClient {
             Bank bank = (Bank) Naming.lookup("rmi://localhost/BankService");
             Scanner sc=new Scanner(System.in);
             
-            // Perform some transactions
-            System.out.println("Enter amount deposit:");
-            bank.deposit(sc.nextInt());
-            System.out.println("Enter amount withdraw:");
-            bank.withdraw(sc.nextInt());
-
-            // Get balance
-            System.out.println("Current balance: " + bank.getBalance());
-
+            boolean run=true;
+            while(run){
+                System.out.println("1.deposit\n2.withdrawl\n3.check balance\n4.exit");
+                System.out.println("Enter an option:");
+                switch(sc.nextInt()){
+                    case 1:
+                        System.out.println("Enter amount deposit:");
+                        bank.deposit(sc.nextInt());
+                        break;
+                    case 2:
+                        System.out.println("Enter amount withdraw:");
+                        bank.withdraw(sc.nextInt());
+                        break;
+                    case 3:
+                        System.out.println("Current balance: " + bank.getBalance());
+                        break;
+                    case 4:
+                        run=false;
+                        break;
+                    default:
+                        System.out.println("Invalid option");
+                }       
+    
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
