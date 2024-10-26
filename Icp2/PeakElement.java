@@ -16,7 +16,7 @@ public class PeakElement {
         if(a[0]>a[1]){
             return 0;
         }
-        for(int i=1;i<=a.length;i++){
+        for(int i=1;i<a.length-1;i++){
             if(isPeak(a[i-1],a[i],a[i+1])){
                 return i;
             }

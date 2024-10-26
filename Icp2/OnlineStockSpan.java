@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 import java.util.Scanner;
-/////to modify still
+//span of stocks price is defined as the maximum number of consecutive days starting from today, going backward
+//for which the stock price was less than or equal to today's price
 public class OnlineStockSpan {
     private int[] inputArray,stockSpan;
     int size;
@@ -12,9 +13,9 @@ public class OnlineStockSpan {
     int[] calculateStockSpan(int[] arr,int n){
         int[] res=new int[n];
         for(int i=0;i<n;i++){
-            int span=1;
+            int span=1;         //that day has stock price equal to that day, hence span is at least =1
             for(int j=i-1;j>=0;j--){
-                //if a greater number is encountered
+                //if a greater number is encountered since we need consecutive small numbers
                 if(arr[j]>arr[i]){
                     break;
                 }
