@@ -1,0 +1,208 @@
+SET 6:
+import java.rmi.Remote;
+import java.rmi.RemoteException;
+public interface MyBillTotal extends Remote{
+	public long total(int pot,int tom,int on,int spin) throws RemoteException;
+}
+
+
+import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
+public class MyBillTotalRemote extends UnicastRemoteObject implements MyBillTotal
+{
+MyBillTotalRemote() throws RemoteException
+{
+	super();
+}
+public long total(int pot,int tom,int on,int spin)
+	{
+		long sum=0;
+		sum=pot*17+tom*8+on*20+spin*12;
+		
+		return sum;
+	}
+}
+
+import java.rmi.Naming;
+import java.rmi.registry.LocateRegistry;
+public class MyServer
+{
+	public static void main(String args[])
+	{
+		try
+		{
+			MyBillTotal stub = new MyBillTotalRemote();
+			LocateRegistry.createRegistry(1099);
+			Naming.rebind("totalbill",stub);
+			System.out.println("Server is ready............");
+			System.out.println("Remote object is ready..........");
+		}
+		catch(Exception e){
+			System.out.println(e);
+		}
+	}
+}
+
+
+import java.rmi.Naming;
+import java.util.Scanner;
+public class MyClient{
+public static void main(String args[])
+{
+try
+{
+    MyBillTotal stub = (MyBillTotal)Naming.lookup("rmi://localhost/totalbill");
+    Scanner sc = new Scanner(System.in);
+    System.out.println("Enter number of kgs of potatoes:");
+    int pot=sc.nextInt();
+    System.out.println("Enter number of kgs of tomatoes :");
+    int tom=sc.nextInt();
+    System.out.println("Enter number of kgs of onions :");
+    int on=sc.nextInt();
+    System.out.println("Enter number of kgs of spinach :");
+    int spin=sc.nextInt();
+    System.out.println("The total cost is "+stub.total(pot,tom,on,spin));
+}
+catch(Exception e)
+{
+    System.out.println(e);
+}
+}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+
+<title>Webmail Page</title>
+</head>
+<body>
+	<h3>Welcome</h3>
+	<form action="Login" >
+	<tr>
+		<label>User Name:</label><input type="text" name="username" required>
+	</tr>
+	<tr>
+		<label>Password:</label><input type="password" name="pass" required>
+	</tr>
+	<tr>
+		<label>Confirm Password:</label><input type="password" name="confpass" required>
+	</tr>
+	<br>
+	<div>
+		<input type="submit" value="Proceed">
+	</div>
+	
+		
+		
+	</form><br>
+	
+
+</body>
+</html>
+
+
+
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd" id="WebApp_ID" version="4.0">
+  <display-name>WebPageRegistration</display-name>
+  <welcome-file-list>
+    <welcome-file>index.html</welcome-file>
+   
+  </welcome-file-list>
+  
+  <servlet>
+    <servlet-name>Login</servlet-name>
+    <servlet-class>Login</servlet-class>
+  </servlet>
+  <servlet-mapping>
+
+    <servlet-name>Login</servlet-name>
+    <url-pattern>/Login</url-pattern>
+  </servlet-mapping>
+</web-app>
+
+
+
+
+import java.io.*;
+import java.sql.*;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.*;
+
+
+@WebServlet("/Login")
+public class Login extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+
+	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		Connection con;
+		try{
+			Class.forName("com.mysql.cj.jdbc.Driver");
+            con=DriverManager.getConnection("jdbc:mysql://localhost:3306/satyam","root","Loknath@2534");
+		
+			PrintWriter out=response.getWriter();
+			response.setContentType("text/html");
+    	
+			String username=request.getParameter("username");
+			String pass=request.getParameter("pass");
+            String confPass=request.getParameter("confpass");
+			
+			
+			PreparedStatement st= con.prepareStatement("select * from user where username=? and pass=?;");
+            st.setString(1, username);
+            st.setString(2, pass);
+			
+            out.println("<html><body>");
+			if(pass.equals(confPass)){
+                ResultSet rs=st.executeQuery();
+                if(rs.next()){
+                    out.println("<h3>Logged in successfully</h3>");
+                }
+                else {
+                    out.println("<h3>Record not found in database</h3>");
+                }
+            }
+            else{
+                out.println("<h3>Passwords dont match</h3>");
+            }
+            out.println("</body></html>");
+			st.close();
+		}catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			System.out.println("Unkown error");
+		}
+	}
+
+}
+
+
+    	
+			
+			
+			
+
+
+
+

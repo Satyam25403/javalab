@@ -1,0 +1,113 @@
+SET 7:
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
+import java.sql.*;
+
+@SuppressWarnings("serial")
+class Employee extends JFrame {
+    JLabel l1, l2, l3, l4, l5,l6, l7, l8, l9, ins, d1, d2;
+    JTextField tx1, tx2, tx3, tx4, tx7, t1, t2, t3;
+    JTextArea ta1, ta2;
+    JButton b1, b2, b3;
+
+    Employee() {
+        setLayout(null);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        // Insert Record Section
+        ins = new JLabel("Insert record in table");
+        ins.setBounds(90, 20, 200, 20);
+
+        l1 = new JLabel("Employee Name:");
+        l1.setBounds(50, 50, 100, 20);
+        tx1 = new JTextField(30);
+        tx1.setBounds(150, 50, 150, 20);
+
+        l2 = new JLabel("Employee ID:");
+        l2.setBounds(50, 100, 100, 20);
+        tx2 = new JTextField(30);
+        tx2.setBounds(150, 100, 150, 20);
+
+        l3 = new JLabel("Address:");
+        l3.setBounds(50, 150, 100, 20);
+        ta1 = new JTextArea(2, 2);
+        ta1.setBounds(150, 150, 150, 30);
+
+        l4 = new JLabel("Phone number:");
+        l4.setBounds(50, 200, 130, 20);
+        tx3 = new JTextField(25);
+        tx3.setBounds(150, 200, 150, 20);
+
+        l5 = new JLabel("Basic salary:");
+        l5.setBounds(50, 250, 100, 20);
+        tx4 = new JTextField(30);
+        tx4.setBounds(150, 250, 150, 20);
+
+        b1 = new JButton("INSERT");
+        b1.setBounds(120, 380, 100, 30);
+
+        tx7 = new JTextField(25);
+        tx7.setBounds(100, 420, 150, 20);
+
+        l6 = new JLabel("Employee Details:");
+        l6.setBounds(330,200,200,20);
+        ta2 = new JTextArea(20,10);
+        ta2.setBounds(330,240,600,200);
+
+        this.add(ins);
+        this.add(l1);
+        this.add(tx1);
+        this.add(l2);
+        this.add(tx2);
+        this.add(l3);
+        this.add(ta1);
+        this.add(l4);
+        this.add(tx3);
+        this.add(l5);
+        this.add(tx4);
+    
+        this.add(b1);
+        this.add(tx7);
+        this.add(l6);
+        this.add(ta2);
+
+        b1.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent a) {
+                try {
+                    String name = tx1.getText();
+                    int id = Integer.parseInt(tx2.getText());
+                    String area = ta1.getText();
+                    long phno = Long.parseLong(tx3.getText());
+                    int salary = Integer.parseInt(tx4.getText());
+        
+                    tx7.setText("Record Inserted");
+
+                    
+                    ta2.setText("Employee Name: " + name + "\n" +
+                                "Employee ID: " + id + "\n" +
+                                "Address: " +area + "\n" +
+                                "Phone number: " + phno + "\n" +
+                                "Basic salary: " + salary + "\n");
+                    
+                } catch (NumberFormatException e) {
+                    tx7.setText("Invalid Input");
+                }catch (Exception e) {
+                    tx7.setText("Record can't be Inserted");
+                    System.out.println(e);
+                }
+            }
+        });
+
+    }
+
+    public static void main(String[] args) {
+        
+            Employee e = new Employee();
+            e.setVisible(true);
+            e.setSize(1000, 500);
+            e.setTitle("Employee Details");
+            e.getContentPane().setBackground(Color.cyan);
+       
+    }
+}

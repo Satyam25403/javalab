@@ -1,0 +1,185 @@
+SET 8:
+import java.io.*;
+import java.net.*;
+import java.util.Arrays;
+
+public class SortServer {
+    public static void main(String[] args) {
+        try (ServerSocket serverSocket = new ServerSocket(12345)) {
+            System.out.println("Server started. Waiting for a client...");
+            Socket socket = serverSocket.accept();
+            System.out.println("Client connected.");
+
+            // Input and output streams for communication
+            DataInputStream in = new DataInputStream(socket.getInputStream());
+            DataOutputStream out = new DataOutputStream(socket.getOutputStream());
+
+            
+            int[] numbers = new int[10];
+            for (int i = 0; i < 10; i++) {
+                numbers[i] = in.readInt();
+            }
+            System.out.println("Received numbers from the client" );
+
+            // Sort the numbers
+            Arrays.sort(numbers);
+
+            // Send the sorted numbers back to the client
+            for (int number : numbers) {
+                out.writeInt(number);
+            }
+
+            System.out.println("output sent");
+            socket.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+}
+
+
+import java.io.*;
+import java.net.*;
+import java.util.*;
+
+public class SortClient {
+    public static void main(String[] args) {
+        Scanner sc=new Scanner(System.in);
+        try (Socket socket = new Socket("localhost", 12345)) {
+            System.out.println("Connected to the server.");
+
+            // Input and output streams for communication
+            DataOutputStream out = new DataOutputStream(socket.getOutputStream());
+            DataInputStream in = new DataInputStream(socket.getInputStream());
+
+            System.out.println("Enter 10 numbers:");
+            for(int i=0;i<10;i++){
+                out.writeInt(sc.nextInt());
+            }
+
+            // Receive the sorted numbers from the server
+            int[] sortedNumbers = new int[10];
+            for (int i = 0; i < 10; i++) {
+                sortedNumbers[i] = in.readInt();
+            }
+
+            // Print the sorted numbers
+            System.out.println("Sorted numbers from server: ");
+            for (int number : sortedNumbers) {
+                System.out.print(number + " ");
+            }
+            socket.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+
+<title>Webmail Page</title>
+</head>
+<body>
+	<h3>Welcome</h3>
+	<form action="WelcomeServlet" >
+	<tr>
+		<label>Owner Name:</label><input type="text" name="username" required>
+	</tr>
+	<br>
+	<div>
+		<input type="submit" value="Proceed">
+	</div>
+	
+		
+		
+	</form><br>
+	
+
+</body>
+</html>
+
+
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd" id="WebApp_ID" version="4.0">
+  <display-name>WebPageRegistration</display-name>
+  <welcome-file-list>
+    <welcome-file>index.html</welcome-file>
+   
+  </welcome-file-list>
+  
+  <servlet>
+    <servlet-name>WelcomeServlet</servlet-name>
+    <servlet-class>WelcomeServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+
+    <servlet-name>WelcomeServlet</servlet-name>
+    <url-pattern>/WelcomeServlet</url-pattern>
+  </servlet-mapping>
+</web-app>
+
+
+import java.io.*;
+import java.sql.*;
+
+import javax.servlet.*;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.*;
+
+
+@WebServlet("/WelcomeServlet")
+public class  WelcomeServlet  extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+
+	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		try{
+			
+			PrintWriter out=response.getWriter();
+			response.setContentType("text/html");
+    	
+			String username=request.getParameter("username");
+			out.println("<html><body>");
+			out.println("<h3>Hello: "+username+" Have a Great Day!!!</h3>");
+			out.println("</body></html>");
+			
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			System.out.println("Unknown error");
+		}
+	}
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
