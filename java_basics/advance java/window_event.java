@@ -3,39 +3,40 @@
 
 import java.awt.*;
 import java.awt.event.*;
-class MyFrame extends Frame{ 
+import javax.swing.JFrame;
+class MyFrame extends JFrame{ 
 
     MyFrame(){ 
         this.setSize(400,500);
         this.setVisible(true);
         this.setTitle("my frame");
-        this.addWindowListener(new myclassimpl());
-    }
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.addWindowListener(new WindowListener(){ 
 
-}
-class myclassimpl implements WindowListener{ 
-
-    public void windowActivated(WindowEvent e){ 
-        System.out.println("window activated");
-    }
-    public void windowDeactivated(WindowEvent e){ 
-        System.out.println("window deactivated");
-    }
-    public void windowIconified(WindowEvent e){ 
-        System.out.println("window iconified");
-    }
-    public void windowDeiconified(WindowEvent e){ 
-        System.out.println("window deiconified");
-    }
-    public void windowClosed(WindowEvent e){
-        System.out.println("window closed");
-    }
-    public void windowClosing(WindowEvent e){ 
-        System.out.println("window is closing");
-        System.exit(0);
-    }
-    public void windowOpened(WindowEvent e){
-        System.out.println("window Opened");
+        public void windowActivated(WindowEvent e){ 
+            System.out.println("window activated");
+        }
+        public void windowDeactivated(WindowEvent e){ 
+            System.out.println("window deactivated");
+        }
+        public void windowIconified(WindowEvent e){ 
+            System.out.println("window iconified");
+        }
+        public void windowDeiconified(WindowEvent e){ 
+            System.out.println("window deiconified");
+        }
+        public void windowClosed(WindowEvent e){
+            System.out.println("window closed");
+            System.exit(0);
+        }
+        public void windowClosing(WindowEvent e){ 
+            System.out.println("window is closing");
+            
+        }
+        public void windowOpened(WindowEvent e){
+            System.out.println("window Opened");
+        }
+        });
     }
 }
 

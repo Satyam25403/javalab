@@ -3,43 +3,32 @@
 //javap java.awt.event.MouseListener
 import java.awt.*;
 import java.awt.event.*;
-class myframe extends Frame implements MouseListener{ 
-	String[] msg=new String[5];
+import javax.swing.JFrame;
+class myframe extends JFrame { 
+	
 	myframe(){ 
 		this.setSize(500,500);
 		this.setVisible(true);
-		this.addMouseListener(this);
-	}
-	public void mouseClicked(MouseEvent e){ 
-		msg[0]="mouse clicked......("+e.getX()+","+e.getY()+")";
-		repaint();
-	}
-	public void mousePressed(MouseEvent e){ 
-		msg[1]="mouse pressed......("+e.getX()+","+e.getY()+")";
-		repaint();
-	}
-    public void mouseReleased(MouseEvent e){ 
-	   msg[2]="mouse released......("+e.getX()+","+e.getY()+")";
-       repaint();
-    }
-    public void mouseEntered(MouseEvent e){ 
-	   msg[3]="mouse entered......("+e.getX()+","+e.getY()+")";
-       repaint();
-    }
-    public void mouseExited(MouseEvent e){ 
-		msg[4]="mouse exited......("+e.getX()+","+e.getY()+")";
-		repaint();
-    }
-	public void paint(Graphics g){ 
-		int X=50;
-		int Y=100;
-		for(int i=0;i<msg.length;i++){ 
-			if(msg[i]!=null){ 
-				g.drawString(msg[i],X,Y);
-				Y=Y+50;
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.addMouseListener(new MouseListener(){
+			public void mouseClicked(MouseEvent e){ 
+				System.out.println("mouse clicked......("+e.getX()+","+e.getY()+")");
 			}
-		}
+			public void mousePressed(MouseEvent e){ 
+				System.out.println("mouse pressed......("+e.getX()+","+e.getY()+")");
+			}
+			public void mouseReleased(MouseEvent e){ 
+				System.out.println("mouse released......("+e.getX()+","+e.getY()+")");
+			}
+			public void mouseEntered(MouseEvent e){ 
+				System.out.println("mouse entered......("+e.getX()+","+e.getY()+")");
+			}
+			public void mouseExited(MouseEvent e){ 
+				System.out.println("mouse exited......("+e.getX()+","+e.getY()+")");
+			}
+		});
 	}
+	
 }
 class Mouse_Listener{
 	public static void main(String[] args){ 
