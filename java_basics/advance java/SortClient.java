@@ -17,6 +17,8 @@ public class SortClient {
                 out.writeInt(sc.nextInt());
             }
 
+            //control now transfers to server
+            
             // Receive the sorted numbers from the server
             int[] sortedNumbers = new int[10];
             for (int i = 0; i < 10; i++) {

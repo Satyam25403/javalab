@@ -1,0 +1,184 @@
+SET 3:
+//Develop the Date & Time Client-Server application using stream & datagram sockets.
+import java.io.*;
+import java.net.*;
+import java.util.*;
+
+//server: first receive and then send
+class DateAndTimeServer {
+    private final static int size = 100; // Buffer size for receiving data
+
+    public static void main(String[] args) throws IOException {
+        int port = 1932; // Port number the server listens on
+        DatagramSocket socket = new DatagramSocket(port); // Create a socket to listen on the specified port
+        String sp = " "; // Variable to store received messages
+
+        // Loop to receive and send messages until "stop" is received
+        System.out.println("Server is listening>>>>");
+        while (!sp.equals("exit")) {
+            DatagramPacket packet = new DatagramPacket(new byte[size], size); // Create a packet to receive data
+            socket.receive(packet); // Receive a packet from the client
+            sp = new String(packet.getData(), 0, packet.getLength()); // Convert the received data to a string
+            System.out.println("Message received from ADDRESS:"+packet.getAddress() + " PORT:" + packet.getPort() + " :: " + sp); // Print client's message with address and port
+
+            if (sp.equals("exit")) {
+                break; // Break the loop if the client sends "stop"
+            }
+
+            Date d = new Date(); // Get the current date and time
+            String s = "Date and time: " + d; // Prepare the response message
+            byte[] buffer = s.getBytes(); // Convert the response message to bytes
+            DatagramPacket clientPacket = new DatagramPacket(buffer, buffer.length, packet.getAddress(), packet.getPort()); // Create a packet to send data to the client
+            socket.send(clientPacket); // Send the packet to the client
+        }
+
+        socket.close(); // Close the socket
+    }
+}
+
+
+
+import java.net.*;
+import java.util.*;
+//Client:first send and then receive
+class DateAndTimeClient {
+    private final static int size = 100; // Buffer size for receiving data
+
+    public static void main(String[] args) {
+        DatagramSocket socket = null; // Socket for communication
+        Scanner sc=null;               //reading user input
+        try {
+            sc = new Scanner(System.in);
+            socket = new DatagramSocket(); // Create a socket for sending and receiving packets
+            InetAddress host = InetAddress.getByName("localhost"); // Server address
+            int port = 1932;                                            // Server port
+            String sp = " ";                                            // Variable to store user input
+
+
+            // Loop to send and receive messages until "exit" is sent
+            while (!sp.equalsIgnoreCase("exit")) {
+                System.out.println("Enter a message to send to the server (or 'exit' to quit):");
+                sp = sc.nextLine(); 
+                byte[] data = sp.getBytes();    // Convert user input to bytes
+                DatagramPacket packet = new DatagramPacket(data, data.length, host, port); // Create a packet to send data to the server
+                socket.send(packet); // Send the packet to the server
+
+                if (sp.equals("exit")) {
+                    break; // Break the loop if the user sends "stop"
+                }
+
+                DatagramPacket packet2 = new DatagramPacket(new byte[size], size); // packet to receive data
+                socket.receive(packet2);                   //Receive a packet from the server
+                System.out.println(":->"+new String(packet2.getData(), 0, packet2.getLength())); // Print the server's message
+            }
+
+        }catch (Exception e) {
+            System.out.println("Error at client"); // Print an error message if an exception occurs
+        }
+        
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+
+<title>Webmail Page</title>
+</head>
+<body>
+	<h3>Welcome</h3>
+	<form action="WelcomeServlet" >
+	<tr>
+		<label>Owner Name:</label><input type="text" name="username" required>
+	</tr>
+	<br>
+	<div>
+		<input type="submit" value="Proceed">
+	</div>
+	
+		
+		
+	</form><br>
+	
+
+</body>
+</html>
+
+
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd" id="WebApp_ID" version="4.0">
+  <display-name>WebPageRegistration</display-name>
+  <welcome-file-list>
+    <welcome-file>index.html</welcome-file>
+   
+  </welcome-file-list>
+  
+  <servlet>
+    <servlet-name>WelcomeServlet</servlet-name>
+    <servlet-class>WelcomeServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+
+    <servlet-name>WelcomeServlet</servlet-name>
+    <url-pattern>/WelcomeServlet</url-pattern>
+  </servlet-mapping>
+</web-app>
+
+
+import java.io.*;
+import java.sql.*;
+
+import javax.servlet.*;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.*;
+
+
+@WebServlet("/WelcomeServlet")
+public class  WelcomeServlet  extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+
+	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		try{
+			
+			PrintWriter out=response.getWriter();
+			response.setContentType("text/html");
+    	
+			String username=request.getParameter("username");
+			out.println("<html><body>");
+			out.println("<h3>Hello: "+username+" Have a Great Day!!!</h3>");
+			out.println("</body></html>");
+			
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			System.out.println("Unknown error");
+		}
+	}
+
+}
+
+
+
+
+
+
+
+
+
+
+

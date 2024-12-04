@@ -1,0 +1,227 @@
+			JAVA INTERNALS:
+
+SET 2:
+
+
+import java.rmi.*;
+
+public interface Bank extends Remote {
+    void deposit(double amount) throws RemoteException;
+    void withdraw(double amount) throws RemoteException;
+    double getBalance() throws RemoteException;
+}
+
+import java.rmi.*;
+import java.rmi.server.*;
+
+public class BankImpl extends UnicastRemoteObject implements Bank {
+    private double balance;
+
+    public BankImpl() throws RemoteException {
+        balance = 0.0; // Initial balance
+    }
+
+    @Override
+    public void deposit(double amount) throws RemoteException {
+        balance += amount;
+        System.out.println("Deposited: " + amount);
+    }
+
+    @Override
+    public void withdraw(double amount) throws RemoteException {
+        if (amount <= balance) {
+            balance -= amount;
+            System.out.println("Withdrew: " + amount);
+        } else {
+            System.out.println("Insufficient balance");
+        }
+    }
+
+    @Override
+    public double getBalance() throws RemoteException {
+        return balance;
+    }
+}
+
+import java.rmi.*;
+import java.rmi.registry.*;
+
+public class BankServer {
+    public static void main(String[] args) {
+        try {
+            // Create the Bank object
+            Bank bank = new BankImpl();
+
+            // Start the RMI registry:without need of java 8
+            LocateRegistry.createRegistry(1099); // Default RMI registry port
+
+            // Bind the Bank object in the RMI registry
+            Naming.rebind("rmi://localhost/BankService", bank);
+
+            System.out.println("Bank Server is ready...");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}
+
+import java.rmi.*;
+import java.util.*;
+
+public class BankClient {
+    public static void main(String[] args) {
+        try {
+            // Lookup the Bank object from the RMI registry
+            Bank bank = (Bank) Naming.lookup("rmi://localhost/BankService");
+            Scanner sc=new Scanner(System.in);
+            
+            boolean run=true;
+            while(run){
+                System.out.println("1.deposit\n2.withdrawl\n3.check balance\n4.exit");
+                System.out.println("Enter an option:");
+                switch(sc.nextInt()){
+                    case 1:
+                        System.out.println("Enter amount deposit:");
+                        bank.deposit(sc.nextInt());
+                        break;
+                    case 2:
+                        System.out.println("Enter amount withdraw:");
+                        bank.withdraw(sc.nextInt());
+                        break;
+                    case 3:
+                        System.out.println("Current balance: " + bank.getBalance());
+                        break;
+                    case 4:
+                        run=false;
+                        break;
+                    default:
+                        System.out.println("Invalid option");
+                }       
+    
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Webmail Page</title>
+</head>
+<body>
+	<h3>Government Of AndhraPradesh</h3>
+	<form action="SignupPage" >
+	<tr>
+		<label>Owner Name:</label><input type="text" name="username" required>
+	</tr>
+	<tr>
+		<label>Vehicle Number:</label><input type="text" name="vehiclenumber" required>
+	</tr>
+	
+	<br><br>
+	<div>
+		<input type="submit" value="Check Registration Status">
+	</div>
+	
+		
+		
+	</form><br>
+	
+
+</body>
+</html>
+
+
+
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd" id="WebApp_ID" version="4.0">
+  <display-name>WebPageRegistration</display-name>
+  <welcome-file-list>
+    <welcome-file>index.html</welcome-file>
+  </welcome-file-list>
+  
+  <servlet>
+    <servlet-name>SignupPage</servlet-name>
+    <servlet-class>SignupPage</servlet-class>
+  </servlet>
+  <servlet-mapping>
+
+    <servlet-name>SignupPage</servlet-name>
+    <url-pattern>/SignupPage</url-pattern>
+  </servlet-mapping>
+</web-app>
+
+
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+
+@WebServlet("/SignupPage")
+public class SignupPage extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+
+	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		Connection con;
+		try{
+			Class.forName("com.mysql.cj.jdbc.Driver");
+            con=DriverManager.getConnection("jdbc:mysql://localhost:3306/satyam","root","Loknath@2534");
+		
+			PrintWriter out=response.getWriter();
+			response.setContentType("text/html");
+    	
+			String username=request.getParameter("username");
+			String numberPlate=request.getParameter("vehiclenumber");
+			
+			//select * from vehicles where name=? and numberplate=? and wheelcount=?; since number plate is unique an not null, it is primary key
+			out.println("100");
+			PreparedStatement st= con.prepareStatement("select * from vehicles where name=? and numberplate=?;");
+			st.setString(1, username);
+			st.setString(2, numberPlate);
+			
+			
+			ResultSet rs=st.executeQuery();
+			if(rs.next()){
+				out.println("<html><body>");
+				out.println("<h4>Vehicle details found in the database</h4>");
+				out.println("<h6>Owner: "+rs.getString(1)+"</h6>");
+				out.println("</body></html>");
+			}
+			else {
+				out.println("<h4>Vehicle is not registered</h4>");
+			}
+			st.close();
+		}catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			System.out.println("Classnot found");
+		}
+	}
+
+}
+

@@ -1,3 +1,4 @@
+SET 1:
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -103,8 +104,12 @@ class EmployeeDetailsInDatabase extends JFrame {
                     tx7.setText("Record Inserted");
                     st.close();
                     con.close();
-                }catch (Exception e) {
-                    tx7.setText("Record can't be Inserted....Check datatypes and ensure ids are unique");
+                } catch (NumberFormatException e) {
+                    tx7.setText("Invalid Input");
+                } catch (SQLIntegrityConstraintViolationException e) {
+                    tx7.setText("Duplicate ID..error");
+                } catch (Exception e) {
+                    tx7.setText("Record can't be Inserted");
                     System.out.println(e);
                 }
             }
@@ -121,8 +126,7 @@ class EmployeeDetailsInDatabase extends JFrame {
 
         b2 = new JButton("DELETE");
         b2.setBounds(400, 130, 100, 30);
-
-        t2 = new JTextField(25);            //to display whether record deleted or not
+        t2 = new JTextField(25);
         t2.setBounds(370, 170, 150, 20);
 
         this.add(del);
@@ -170,7 +174,7 @@ class EmployeeDetailsInDatabase extends JFrame {
         b3 = new JButton("SELECT");
         b3.setBounds(680, 130, 100, 30);
 
-        det = new JLabel("Employee Details:");          //to display information of selected employee
+        det = new JLabel("Employee Details:");
         det.setBounds(330, 200, 200, 20);
         ta2 = new JTextArea(20, 10);
         ta2.setBounds(330, 240, 600, 200);
@@ -217,12 +221,12 @@ class EmployeeDetailsInDatabase extends JFrame {
     }
 
     public static void main(String[] args) {
-
+        SwingUtilities.invokeLater(() -> {
             EmployeeDetailsInDatabase e = new EmployeeDetailsInDatabase();
             e.setVisible(true);
             e.setSize(1000, 500);
             e.setTitle("Employee Details");
             e.getContentPane().setBackground(Color.cyan);
-    
+        });
     }
 }

@@ -7,13 +7,13 @@ public class MyServer
 		try
 		{
 			MyBillTotal stub = new MyBillTotalRemote();
-			LocateRegistry.createRegistry(1099);
-			Naming.rebind("totalbill",stub);
+			LocateRegistry.createRegistry(1088);
+			Naming.rebind("rmi://localhost/totalbill",stub);
 			System.out.println("Server is ready............");
 			System.out.println("Remote object is ready..........");
 		}
 		catch(Exception e){
-			System.out.println(e);
+			e.printStackTrace();
 		}
 	}
 }

@@ -14,7 +14,7 @@ class RussianDoll {
         System.out.println(maxEnvelopes(a));
     }
     public static int maxEnvelopes(int[][] envelopes) {
-        Arrays.sort(envelopes, (a, b) -> a[0] - b[0]);
+        Arrays.sort(envelopes, (a, b) -> a[0] - b[0]);      //sort in asc order of first element
         int n = envelopes.length;
         int[] dp = new int[n];
         Arrays.fill(dp, 1);

@@ -84,6 +84,13 @@ public class SortedListToBST {
 
         }
     }
+    public static void inorder(TreeNode root){
+        if(root!=null){
+            inorder(root.left);
+            System.out.println(root.val+" ");
+            inorder(root.right);
+        }
+    }
 
     public static void main(String[] args) {
         // Example sorted linked list: -10 -> -3 -> 0 -> 5 -> 9
@@ -102,5 +109,6 @@ public class SortedListToBST {
         TreeNode root =sortedListToBST(head);
         System.out.println("Height-balanced BST (levelorder traversal):");
         levelOrderTraversal(root);
+        inorder(root);
     }
 }

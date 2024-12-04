@@ -6,6 +6,7 @@ public class UniqueBSTs {
         for (int i = 1; i <= n; i++) {
             for (int j = 1; j <= i; j++) {
                 count[i] += count[j - 1] * count[i - j];
+                //j-1 node values for left subtree, i=j nodes in the right subtree
             }
         }
 
