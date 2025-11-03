@@ -1,4 +1,0 @@
-dbms-98
-dld=90
-java-95
-ds-94
