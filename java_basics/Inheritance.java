@@ -93,7 +93,7 @@ class Scooter{
 }
 
 
-public class oops2 {
+public class Inheritance {
     public static void main(String[] args) {
         Car car=new Car();          //even if instance of parent class is not created, when an object is created 
         car.model="1b45z";          //constructor of its parent class called implicitly

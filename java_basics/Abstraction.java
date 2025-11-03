@@ -33,7 +33,7 @@ class Car extends Vehicle{
     
     
 }
-public class oops4 {
+public class Abstraction {
     public static void main(String[] args) {
         // Vehicle v=new Vehicle();             will produce an error
         Car c=new Car();
