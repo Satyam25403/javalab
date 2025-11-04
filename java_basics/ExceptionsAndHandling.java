@@ -2,12 +2,13 @@
 
 import java.util.Scanner;
 
+//creating custom exceptions
 class MyException extends Exception{
     public MyException(String message){
         super(message);
     }
 }
-public class oops10 {
+public class ExceptionsAndHandling {
     //exception:an unexpected event that occures during program excecution and affects the flow of the program causing program to terminate abnormally
     //causes:invalid user input,device failure,loss of networkconnection,code errors,open unavailable file,physical limitations
     //two types:runtime-due to programming error(unchecked exceptions) checked at runtime(NullPointerException, array index out of bounds, ArithmeticException)

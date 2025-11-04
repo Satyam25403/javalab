@@ -1,12 +1,17 @@
 //package is a container that groups related classes, interfaces, enumerations and annotations
+//i.e. in simple words Logical grouping of related classes/interfaces.
 //java uses file system directories to store packages
 
 //import statements are written directly after the package statement and before class definition
 
 class Person{
+    // ✅ Static Variables
+    // - Belong to the class, not individual objects.(i.e. changes to this variable reflects accross all objects)
+    // - Memory allocated at class loading time, not object creation.
+
     public static int no_of_instances=0;
     public Person(){
-        no_of_instances++;                  //counts no of instances created,as this is class variable not instance variable
+        no_of_instances++;                  //counts no of instances created, each time an object is created, modifies this variable of the classww
         //hence common to all instances of class
     }
 
@@ -43,7 +48,7 @@ class Person{
 }
 //static block runs even before the main method i.e. when classes are loaded
 
-public class oops3 {
+public class EncapsulationAndAccessModifiers {
     static{
         System.out.println("FROM STATIC BLOCK");
     }
