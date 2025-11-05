@@ -1,0 +1,5 @@
+- final, static, and abstract modifiers on classes and methods
+- this() vs super() constructor chaining
+- Singleton pattern using static instance
+- Static nested classes vs inner classes
+- Access modifiers in interfaces and inheritanc
