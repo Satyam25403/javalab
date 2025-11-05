@@ -1,9 +1,12 @@
 //functional programming:functionas can be passed as parameters
+
 //functional interface:an interface having only one method
+// - Can still have default or static methods.
 @FunctionalInterface
 interface SuperInterface{
     void interfaceMethod();
 }
+@FunctionalInterface
 interface Walkable{
     int isWalkable(int steps);
 }
@@ -12,17 +15,17 @@ public class oops7 {
 
         @Override
         public void interfaceMethod() {
-
+            //implementation
         }
         
     };
     //above code can be replaced by: following code
 
-    //in previos example, the objected created above by anonymous class implementing an interface can be created by lambda exp[ression]
+    //in previous example, the object that is created above by anonymous class implementing an interface can be created by lambda expression
     SuperInterface si2=()->{
 
     };
-    //since a single method is present, lambda will not provide any ambiguity to the compliler
+    //since a single method is present in functional interface, lambda will not provide any ambiguity to the compliler...it just implements the declared function
 
 
 
@@ -41,8 +44,12 @@ public class oops7 {
         
         //creating another object by providing alternate implementation
         Walkable wal=(steps)->2*steps;                  //single expression in lambda
+
         //NOTE: in lambda expressions curly braces used for multiple statements and then a return statement is required
         //in case of single statement,no need of return statement as above
-        //lambda: (parameters with return types)->{implementation}
+        //lambda: (parameters)->{implementation}
+        // - Enables functional programming style
+        // - Used heavily in streams, event handling, and concurrency
+
     }
 }
