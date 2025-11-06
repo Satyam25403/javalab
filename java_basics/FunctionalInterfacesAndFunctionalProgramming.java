@@ -10,7 +10,7 @@ interface SuperInterface{
 interface Walkable{
     int isWalkable(int steps);
 }
-public class oops7 {
+public class FunctionalInterfacesAndFunctionalProgramming {
     SuperInterface si=new SuperInterface() {
 
         @Override

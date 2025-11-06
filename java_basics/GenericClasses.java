@@ -52,7 +52,7 @@ class Test{
 
 }
 //to restrict the types; we use concept of bounded generics
-public class oops11 {
+public class GenericClasses {
 
     public static void main(String[] args) {
 
@@ -88,7 +88,7 @@ public class oops11 {
 
 
         //since doubledata is non static method, an object should be created to access its members
-        oops11 obj2=new oops11();
+        GenericClasses obj2=new GenericClasses();
         obj2.doubleData("string");
         obj2.doubleData(341);
         obj2.doubleData(t);     //can also take a custom class type: here we have passed a Test type
