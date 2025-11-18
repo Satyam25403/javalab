@@ -2,9 +2,9 @@
 //a class is a template that must be implemented by its objects
 
 class Complex{
+
     //attributes
     int real,imz;
-
 
     //a constructor cannot be abstract(empty without implementation), cannot be static(used without creating an instance) or
     //cannot be final(cannot be changed)
@@ -39,8 +39,10 @@ class Complex{
         System.out.println("String constructor "+str);
     }
 
-
-
+    //methods
+    void print(){
+        System.out.println(real+"+i"+imz);
+    }
     //use of this keyword and function having returntype of the type class
     Complex add(Complex num){
         System.out.println(this);    //print the reference to current object: prints-> 'ClassName@HashCode'
@@ -48,9 +50,9 @@ class Complex{
         return new Complex(this.real+num.real,this.imz+num.imz);
     }
 
-    //methods
-    void print(){
-        System.out.println(real+"+i"+imz);
+    boolean equals(Complex num){
+        System.out.println(this.real+"i"+this.imz);
+        return this.real==num.real && this.imz==num.imz ? true : false;
     }
 }
 
@@ -99,8 +101,10 @@ public class Polymorphism {
         //constructors are invoked implicitly when we instantiate objects-a constructor does not have a return type
         //and has same name as the class name
         //when java default constructor is called instance variables are initialized with default values of primary datatypes ex: 0 for int, false for boolean etc
-        Complex num1=new Complex(5,6);
+        Complex num1=new Complex(3,4);
         num1.print();
+
+        System.out.println("Are c and num1 equal? "+ c.equals((num1)));
 
 
         Complex res=num1.add(c);            //calls num1's add method 

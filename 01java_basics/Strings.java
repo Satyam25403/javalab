@@ -80,7 +80,7 @@ public class Strings {
             System.out.println("both(references) are not same");
         }
         //when == is used, references are comapred whether the references are same or not
-        //not the actual string values are compared
+        //not the actual string values
 
         //METH 2:
         //when equals() is used, the actual values of the string are compared
@@ -97,7 +97,7 @@ public class Strings {
             System.out.println("ignoring case, they are equal");
         }
         
-        //NOTE:generalization is that comparision operator == checks REFERENCES in case of objects ex:string
+        //NOTE:generalization is that comparision operator == checks REFERENCES in case of objects(created with help of new operator) ex:string
         //if references point to same address the condition becomes true
         //whereas for primitive data types, it checks their VALUES ex:int,char etc
 
@@ -118,8 +118,8 @@ public class Strings {
 
         //toUpperCase(),toLowerCase(); trim() remove initial or end spaces if present in string;
         //startsWith();endsWith();equals();equalsIgnoreCase()
-        //charAt(); valueOf() to convert int double float etc to characters; replace();
-        //contains(); substring(start[included],end[excluded]); split() return an array; toCharArray();
+        //charAt(); valueOf() static method to convert int double float etc to characters; replace();
+        //contains(); substring(start[included],end[excluded]); split() return an array at specified delimiter; toCharArray();
         //isEmpty()to chech whether a string is empty or not
         //isBlank()return true if string only has whitespaces
 
