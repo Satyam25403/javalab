@@ -47,6 +47,7 @@ public class SecondLargestElement {
     }
 
     static void levelTwoOptimization(int a[]){
+        //maintain two vars one for biggest and one for second largest: O(n)
         int largest = a[0], secondLargest=Integer.MIN_VALUE;
         for (int i=1;i<a.length;i++){
             if(a[i]>largest){
