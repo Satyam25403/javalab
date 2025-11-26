@@ -105,7 +105,7 @@ public class EncapsulationAndAccessModifiers {
 //access modifiers: set visibility of classes,variables,methods,constructors,data members and setter methods
 
 
-//                                             same package    same package    different package    same package
+//                                             same package    same package    different package    different package
 // access modifiers            same class       subclass       non-subclass        subclass          non-subclass
 
 // default:(package private)       yes             yes             yes                 no                  no

@@ -14,7 +14,6 @@ import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 import java.util.PriorityQueue;
 import java.util.Queue;
 import java.util.Set;
@@ -26,7 +25,7 @@ import java.util.TreeSet;
 //all these are inherited by implementing classes and interfaces
 
 
-public class collections {
+public class CollectionsFramework {
     //List interface:implemented by 4 classes(ArrayList,LinkedList,Stack,Vector)
     public static void main(String[] args) {
 

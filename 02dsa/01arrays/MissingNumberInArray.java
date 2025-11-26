@@ -51,21 +51,16 @@ public class MissingNumberInArray {
         System.out.println("Missing number: "+(sumOfKNaturals-sum));
     }
     static void optimalSolutionByXOR(int a[],int k){
-        //XOR-ing a number with itself=0 and, 0 XOR any-number = number-itself
-        int xorOfNaturals=0;
-        for(int i=1;i<=k;i++){
-            xorOfNaturals^=i;
-        }
+        //XOR-ing all array elements with all naturals in the range: O(n)
+        //XOR-ing a number with itself=0 and, 0 XOR any-number = number-itself; XOR-ing a group of numbers never exceeds the greatest number in the group
 
-        int xorOfArrayElements=0;
+        int xorResult=0;
         for(int i=0;i<a.length;i++){
-            xorOfArrayElements^=a[i];
+            xorResult^=a[i]^(i+1);                  //natural no's start from 1
         }
-
-        int missingNum=xorOfArrayElements^xorOfNaturals;
-        System.out.println("Missing number: "+missingNum);
+        xorResult^=k;           //we need to do this explicitly because natural numbers in given range have one element extra than the array elements
+        System.out.println("Missing number: "+xorResult);
     }
-
     public static void main(String args[]){
         Scanner sc=new Scanner(System.in);
         int a[]=new int[7];
