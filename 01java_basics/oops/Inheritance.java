@@ -1,7 +1,11 @@
+package oops;
 //the class that is created from an existing(super,parent or base class) is called subclass(child or derived)
 
 //multiple inheritance is not allowed in java ie one class cannot be derived from more than one classes
 //reason is:there should be onlynone immediate parent for any class
+
+import Car;
+
 class vehicle{
     int WheelsCount;
     String model;

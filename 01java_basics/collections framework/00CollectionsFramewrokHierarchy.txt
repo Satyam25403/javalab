@@ -1,0 +1,29 @@
+Collections Framework
+│
+├── Iterable
+│   └── Collection
+│       ├── List (ordered, allows duplicates)
+│       │   ├── ArrayList
+│       │   ├── LinkedList
+│       │   ├── Vector (legacy)
+│       │   └── Stack (legacy, extends Vector)
+│       │
+│       ├── Set (no duplicates)
+│       │   ├── HashSet
+│       │   ├── LinkedHashSet
+│       │   └── TreeSet (SortedSet)
+│       │
+│       └── Queue (FIFO)
+│           ├── PriorityQueue
+│           ├── ArrayDeque (Deque)
+│           └── LinkedList (also implements List)
+│
+└── Map (not part of Collection, key-value pairs)
+    ├── HashMap
+    ├── LinkedHashMap
+    ├── TreeMap (SortedMap)
+    ├── Hashtable (legacy)
+    ├── ConcurrentHashMap
+    ├── WeakHashMap
+    ├── IdentityHashMap
+    └── EnumMap

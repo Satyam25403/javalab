@@ -1,3 +1,4 @@
+package oops;
 //there can be any number of classes in a file but only one public class: usually public static void main
 //a class is a template that must be implemented by its objects
 
