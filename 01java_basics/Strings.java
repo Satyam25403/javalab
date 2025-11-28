@@ -114,14 +114,35 @@ public class Strings {
 
 
         //METHODS:all these methods are not manipulating existing strings
-        //they are creating new strings with desired specifications
+        //they are creating new strings with desired specifications...to make changes in the original string, do  orgstring=orgstring.method(arg)
+        // string + int/char/string/escape sequence characters like /n,/t etc
+        // string is not immutable...like u cant do something like s.charAt(someindex)='a new character'...we cant change contents of string, a new string will/has to be created
 
-        //toUpperCase(),toLowerCase(); trim() remove initial or end spaces if present in string;
-        //startsWith();endsWith();equals();equalsIgnoreCase()
-        //charAt(); valueOf() static method to convert int double float etc to characters; replace();
-        //contains(); substring(start[included],end[excluded]); split() return an array at specified delimiter; toCharArray();
-        //isEmpty()to chech whether a string is empty or not
-        //isBlank()return true if string only has whitespaces
+        //.length(); .toString(); .concat(string)
+        //.toUpperCase(), .toLowerCase(); .trim() remove initial or end spaces if present in string;
+        //.startsWith(); .endsWith(); .equals(string) values of string are compared, == compares references; .equalsIgnoreCase(); .compareTo(string) compares strings lexographically(by ascii values) retruns difference between ascii values of first unmatched chars
+        // if first string is greater in length and second(arg) is a substring of the first, compareTo returns difference in the number of characters
+        //.charAt(index); .indexOf(char); .valueOf() static method to convert int double float etc to characters; replace();
+        //.contains(string/substring); .substring(start[included], .end[excluded])...where is 2nd arg is not passed, it will take right limit to end of string; .split() return an array at specified delimiter; toCharArray();
+        //.isEmpty()to chech whether a string is empty or not
+        //.isBlank()return true if string only has whitespaces
+
+
+        // ---------------------------------------------MOST IMPORTANT SECTION-------------------------------------------------------------------------
+        //converting integer to string
+        String sExample= Integer.toString(12345);      //or use String.valueOf(int)
+        //converting String to integer
+        int n=Integer.parseInt(sExample);                 //or use Integer.valueOf(string)
+        //numeric character to its integer value
+        char ch = '5';
+        int num = ch - '0';   // Best way           before performing addn or subn on chars they are converted to integer first
+        System.out.println(num);   // 5:difference in ascii values is stored
+        //Integer digit to character digit
+        int num1 = 5;
+        char ch1 = (char)(num1 + '0');      //0 converted to ascii number, added with 5 and resultant ascii number is converted to its char representation
+        System.out.println(ch1);   // '5'
+
+
 
         int age=123;
         String st=String.valueOf(age);      //convert to string
@@ -149,10 +170,11 @@ public class Strings {
         System.out.println(sb1); // Hello World
 
         //some methods that both contain: StringBuilder and StringBuffer, Both classes share the same API, so these methods apply to both
-        //.append(), .insert(offset, string), .delete(start{inclusive}, end{exclusive}), .deleteCharAt(index), .replace(start,end, replacementstring), 
-        //.reverse(), .setCharAt(index, char), .substring(start,end), .length():current no of chars, .capacity():no of chars it can accomodate:buffer size,
-        //.ensureCapacity(mincapacity): atleast these many no. of chars
-        //Prefer StringBuilder for interview questions
+        //.append(), .insert(offset/index, string), .delete(start{inclusive}, end{exclusive}), .deleteCharAt(index), .replace(start,end, replacementstring), 
+        //.reverse(), .charAt(index), .setCharAt(index, char), .deleteCharAt(index), .substring(start,end)
+        //.length():current no of chars, .capacity():no of chars it can accomodate:buffer size, .ensureCapacity(mincapacity): atleast these many no. of chars
+        //.toString() convert to string type from stringbuilder type and can then apply methods available in strings
+        // Prefer StringBuilder for interview questions for dealing with strings that need to be changed
 
 
 

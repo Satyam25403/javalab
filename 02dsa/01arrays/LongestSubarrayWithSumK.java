@@ -73,15 +73,29 @@ public class LongestSubarrayWithSumK {
         System.out.println("Longest length of subarray with sum=k is: "+longestLengthOfSubarrayWithSumK);
     }
     static void mostOptimalSolutionForNonNegatives(int a[],int k){
-        //two pointer with greedy approach
+        //two pointer with greedy approach: keep summing elements, and as soon as sum exceeds target, start trimming from left and if sum found, 
+        //keep updating longestLength(by diff b/w indices when sum found) variable
+        //O(2n) time complexity...because both pointers are traversing the array only once eventhough it may look like it is O(n^2)
+        int left=0, right=0;
+        int sum=a[right], maxLengthSubarrayWithSumK=0;
+        while(right<a.length){
+            while(left<=right && sum>k){            //if there is a subarray and sum has exceeded k
+                sum-=a[left];
+                left++;
+            }
+            if(sum==k){     //new subarray with sum=k found
+                maxLengthSubarrayWithSumK=Math.max(maxLengthSubarrayWithSumK,right-left);
+            }
+            right++;
+            if(right<a.length){
+                sum+=a[right];
+            }
+        }
+        System.out.println("Max length of subarray with sum K: "+maxLengthSubarrayWithSumK);
     }
 
     static void mostOptimalSolutionIfNegativesIncluded(int a[],int k){
-        //a better approach for non-negative elements and most optimal(cant be further optimized) if negative numbers are present in array
-        
-        //using hashing: prefix sum approach-> we are keeping prefix sum track...let us say for sum element it came as x....if some where previously, prefixsum came as x-k,
-        //then we found a sub array in b/w with sum k=> hence we can generate subarrays with sum=k
-        //O(n logn) time complexity for worst case(which is very less likely to occur) : O(n) in average case; and O(n) extra space
+        //same as better solution for nonnegatives
         HashMap<Integer, Integer> map = new HashMap<>();            //to store prefix sum till particular index: sum is the key, index is value
         int sum=0;
         int longestLengthOfSubarrayWithSumK=0;
