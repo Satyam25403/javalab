@@ -1,6 +1,6 @@
 import java.util.*;
 
-public class Arrays {
+public class ArraysDemo {
     public static void main(String[] args) {
         
         int intArray[];         //array declaration
@@ -12,7 +12,7 @@ public class Arrays {
         // - Accessing out-of-bound index → ArrayIndexOutOfBoundsException
 
         int marks[]={98,23,45,2,12};        //declararion with initialization
-
+        Arrays.sort(marks);
 
         String names[]={"ram","harish","gopi","karan"};
         int n=names.length;
