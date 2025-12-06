@@ -170,7 +170,7 @@ public class Strings {
         System.out.println(sb1); // Hello World
 
         //some methods that both contain: StringBuilder and StringBuffer, Both classes share the same API, so these methods apply to both
-        //.append(), .insert(offset/index, string), .delete(start{inclusive}, end{exclusive}), .deleteCharAt(index), .replace(start,end, replacementstring), 
+        //.append(), .insert(offset/index, string), .delete(start{inclusive}, end{exclusive}), .replace(start,end, replacementstring), 
         //.reverse(), .charAt(index), .setCharAt(index, char), .deleteCharAt(index), .substring(start,end)
         //.length():current no of chars, .capacity():no of chars it can accomodate:buffer size, .ensureCapacity(mincapacity): atleast these many no. of chars
         //.toString() convert to string type from stringbuilder type and can then apply methods available in strings
