@@ -1,4 +1,3 @@
-import java.util.HashMap;
 import java.util.Scanner;
 
 //subsequence: can include discontinuous elements
@@ -61,7 +60,7 @@ public class MaximumSubArraySum {
             } // can also be written as...
 
             // maxEndingHere = Math.max(0, maxEndingHere); //if adding currentelement, still
-            // keeps sum positive, carry it further...else if<0 drop the sum
+            // keeps sum positive, carry it further as it will help in increasing the sum...else if<0 drop the sum
             // i.e. extend the previous sum or start fresh if sum negative
         }  
         System.out.println("Maximum subarray sum: " + maxSum);
