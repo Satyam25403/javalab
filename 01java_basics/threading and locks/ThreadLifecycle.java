@@ -30,12 +30,12 @@ public class ThreadLifecycle extends Thread{
 
 
         try {
-            thread.join();          //since main thread is executing the code,...this is a way of telling the main thread to wait till execution of called thread 
+            thread.join();          //since main thread is executing the code(caller),...this is a way of telling the main thread to wait till execution of called thread 
             // and then resume/execute itself: main method waits for thread to finish its task
         } catch (InterruptedException e) {
             e.printStackTrace();
         }     
         //by here thread has done its work 
-        System.out.println(thread.getState());
+        System.out.println(thread.getState());          //TERMINATED as thread has finished its execution...main thread has waited till termination of thread
     }
 }

@@ -10,6 +10,11 @@
 //to create a thread: 
 // 1.extend Thread class 
 class NewThread extends Thread{
+    //giving custom name to thread other than Thread-0, Thread-1 etc by using constructor
+    public NewThread(String name){
+        super(name);
+    }
+
     @Override
     public void run(){
         //infinite loops used to show that threads execute in random order independent of each other and not sequentially
@@ -33,7 +38,7 @@ public class MultiThreading {
         System.out.println(Thread.currentThread().getName());
 
         //new created thread: method1
-        NewThread thread=new NewThread();
+        NewThread thread=new NewThread("t1");
         thread.start();     //call the run method of thread: initiates a new thread
 
         //new thread: method2
@@ -43,6 +48,14 @@ public class MultiThreading {
 
 
         //thread methods
-        //thread.start()
+        //thread.start(), thread.join(), thread.getState(), thread.sleep(milliseconds), run(overriden method), Thread.currentThread().getName(),  Thread.currentThread().getPriority()
+        //thread.setPriority(Thread.MIN_PRIORITY)  MIN_PRIORITY=1, NORM_PRIORITY=5, MAX_PRIORITY=10, thread.interrupt()...whatever the thread was doing, interrupt that task...just giving hint(scheduler may ignore it)
+        //thread.yield() to give chance for other threads(ideally give equal chance to all)...indication that current thread is willing to yield its current use of processor to another thread...just giving hint(scheduler may chose to ignore it)
+
+        //USER threads: we create/instantiate them and assign tasks like to perform functionality in the run method
+        //DAEMON threads: threads running in background ex:java's garbage collector...main thing is JVM doesnt wait for DAEMON threads to finish execution...it only waits for completion of user threads
+
+        //thread.setDaemon(true)...convert user thread to deamon thread(so that JVM dont wait for it to finish...as soon as user threads terminate, exit the process)
+
     }
 }
