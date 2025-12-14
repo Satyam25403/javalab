@@ -10,7 +10,7 @@ import java.util.*;
 public class SetDemo {
 
     // --------------------------------------------------
-    // 1️⃣ HashSet Demo
+    // 1️⃣ HashSet Demo: No order, Fastest performance
     // --------------------------------------------------
     static void hashSetDemo() {
         Set<String> set = new HashSet<>();
@@ -37,7 +37,7 @@ public class SetDemo {
     }
 
     // --------------------------------------------------
-    // 2️⃣ LinkedHashSet Demo
+    // 2️⃣ LinkedHashSet Demo: maintains insertion order, medium performance
     // --------------------------------------------------
     static void linkedHashSetDemo() {
         Set<String> set = new LinkedHashSet<>();
@@ -54,6 +54,8 @@ public class SetDemo {
         set.remove("Horse");
         System.out.println("After removing Horse: " + set);
 
+        System.out.println("Contains Dog? " + set.contains("Dog"));
+
         // Traversal
         System.out.println("Iterating LinkedHashSet:");
         for (String item : set)
@@ -61,10 +63,10 @@ public class SetDemo {
     }
 
     // --------------------------------------------------
-    // 3️⃣ TreeSet Demo
+    // 3️⃣ TreeSet Demo: sorted order of elements, slowest performance
     // --------------------------------------------------
     static void treeSetDemo() {
-        Set<String> set = new TreeSet<>();
+        TreeSet<String> set = new TreeSet<>();
 
         set.add("Banana");
         set.add("Apple");
@@ -74,12 +76,14 @@ public class SetDemo {
         System.out.println("\nTreeSet (Sorted Order): " + set);
 
         // First & Last elements
-        System.out.println("First: " + ((TreeSet<String>)set).first());
-        System.out.println("Last: " + ((TreeSet<String>)set).last());
+        System.out.println("First: " + set.first());
+        System.out.println("Last: " + set.last());
 
         // Remove
         set.remove("Mango");
         System.out.println("After removing Mango: " + set);
+
+        System.out.println("Contains Apple? " + set.contains("Apple"));
 
         // Traversal
         System.out.println("Iterating TreeSet:");

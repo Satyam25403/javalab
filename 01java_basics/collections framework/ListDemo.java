@@ -44,7 +44,7 @@ public class ListDemo {
     // 2️⃣ LinkedList Demo
     // -----------------------------------------
     static void linkedListDemo() {
-        List<String> list = new LinkedList<>();
+        LinkedList<String> list = new LinkedList<>();
 
         list.add("Red");
         list.add("Green");
@@ -61,8 +61,10 @@ public class ListDemo {
         System.out.println("After update: " + list);
 
         // Remove
-        list.removeLast();
+        list.removeLast();                  //only available in LinkedList class not available in List interface
         System.out.println("After removeLast(): " + list);
+        list.remove(1);
+        System.out.println("After removal of element at 1st index: " + list);
 
         // Traversal
         System.out.println("Iterating LinkedList:");

@@ -11,8 +11,38 @@ import java.util.*;
 
 public class QueueDemo {
 
+     // --------------------------------------------------
+    // 3️⃣ LinkedList Demo (Used as Queue): simple queuing
     // --------------------------------------------------
-    // 1️⃣ PriorityQueue Demo
+    static void linkedListQueueDemo() {
+        Queue<String> queue = new LinkedList<>();
+
+        queue.add("One");
+        queue.add("Two");
+        queue.add("Three");
+        queue.add("Four");
+
+        System.out.println("\nLinkedList as Queue (FIFO): " + queue);
+
+        // Peek
+        System.out.println("Peek: " + queue.peek());
+
+        // Poll: remove head
+        System.out.println("Poll (remove head): " + queue.poll());
+        System.out.println("After poll(): " + queue);
+
+        // Add: at end
+        queue.offer("Five");
+        System.out.println("After offer(): " + queue);
+
+        // Traversal
+        System.out.println("Iterating LinkedList Queue:");
+        for (String s : queue)
+            System.out.println(s);
+    }
+
+    // --------------------------------------------------
+    // 1️⃣ PriorityQueue Demo: min-heap behavior, smallest element first
     // --------------------------------------------------
     static void priorityQueueDemo() {
         Queue<Integer> pq = new PriorityQueue<>();
@@ -28,6 +58,12 @@ public class QueueDemo {
 
         pq.remove();  // removes head (smallest)
         System.out.println("After remove(): " + pq);
+
+        System.out.println("Poll (removes head): " + pq.poll());
+        System.out.println("After poll(): " + pq);
+
+        // Add element at end
+        pq.offer(15);
 
         // Traversal
         System.out.println("Iterating PriorityQueue:");
@@ -69,33 +105,5 @@ public class QueueDemo {
             System.out.println(s);
     }
 
-    // --------------------------------------------------
-    // 3️⃣ LinkedList Demo (Used as Queue)
-    // --------------------------------------------------
-    static void linkedListQueueDemo() {
-        Queue<String> queue = new LinkedList<>();
-
-        queue.add("One");
-        queue.add("Two");
-        queue.add("Three");
-        queue.add("Four");
-
-        System.out.println("\nLinkedList as Queue (FIFO): " + queue);
-
-        // Peek
-        System.out.println("Peek: " + queue.peek());
-
-        // Poll
-        System.out.println("Poll (remove head): " + queue.poll());
-        System.out.println("After poll(): " + queue);
-
-        // Add
-        queue.offer("Five");
-        System.out.println("After offer(): " + queue);
-
-        // Traversal
-        System.out.println("Iterating LinkedList Queue:");
-        for (String s : queue)
-            System.out.println(s);
-    }
+   
 }

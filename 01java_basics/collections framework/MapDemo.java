@@ -11,11 +11,11 @@ import java.util.concurrent.ConcurrentHashMap;
 // HashMap alone covers the essential Map DS.
 
 public class MapDemo {
-    static void hashMapDemo() {
 
-        // ----------------------------------------
-        // 1️⃣ Creating a Map (using HashMap implementation)
-        // ----------------------------------------
+    // ----------------------------------------
+    // 1️⃣ Creating a Map (using HashMap implementation): No order, fast
+    // ----------------------------------------
+    static void hashMapDemo() {
         Map<String, Integer> map = new HashMap<>();
 
         // ----------------------------------------
@@ -94,6 +94,29 @@ public class MapDemo {
         System.out.println("After clear(): " + map);
     }
     
+    // ----------------------------------------
+    // 2. Creating a Map (using LinkedHashMap implementation): insertion order preserved, moderate speed
+    // ----------------------------------------
+    static void linkedHashMapDemo() {
+        Map<String, Integer> map = new LinkedHashMap<>();
+
+        map.put("Apple", 100);
+        map.put("Banana", 40);
+        map.put("Mango", 80);
+        map.put("Orange", 60);
+
+        System.out.println("\nLinkedHashMap (Insertion Order Preserved): " + map);
+
+        System.out.println(map.get("Mango"));
+
+        System.out.println("Iterating LinkedHashMap:");
+        for (Map.Entry<String, Integer> e : map.entrySet())
+            System.out.println(e.getKey() + " → " + e.getValue());
+    }
+
+    // ----------------------------------------
+    // 3. Creating a Map (using TreeMap implementation): sorted by key, slower
+    // ----------------------------------------
     static void treeMapDemo() {
         Map<String, Integer> map = new TreeMap<>();
 
@@ -108,22 +131,11 @@ public class MapDemo {
         for (Map.Entry<String, Integer> e : map.entrySet())
             System.out.println(e.getKey() + " → " + e.getValue());
     }
+    
 
-    static void linkedHashMapDemo() {
-        Map<String, Integer> map = new LinkedHashMap<>();
 
-        map.put("Apple", 100);
-        map.put("Banana", 40);
-        map.put("Mango", 80);
-        map.put("Orange", 60);
 
-        System.out.println("\nLinkedHashMap (Insertion Order Preserved): " + map);
-
-        System.out.println("Iterating LinkedHashMap:");
-        for (Map.Entry<String, Integer> e : map.entrySet())
-            System.out.println(e.getKey() + " → " + e.getValue());
-    }
-
+    
     static void hashTableDemo() {
         Map<String, Integer> map = new Hashtable<>();
 
