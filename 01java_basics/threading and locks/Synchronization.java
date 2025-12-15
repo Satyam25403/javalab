@@ -90,6 +90,12 @@ public class Synchronization {
         //we dont have control on any of these while using synchronized keyword
         //2. Potential for deadlocks: intrinsic locks can lead to deadlocks if not used
         //carefully, especially when multiple locks are involved
+        //3. No fairness(starvation): intrinsic locks do not guarantee fairness in lock acquisition,
+        //which can lead to thread starvation where some threads may wait indefinitely while others continuously acquire the
+        //4. indefinite waiting: if a thread holding a lock is delayed or blocked for an extended period, other threads waiting for the lock may experience indefinite waiting, leading to performance issues.
+        //5.No interruptible lock acquisition: threads waiting to acquire an intrinsic lock cannot be interrupted, which can lead to situations where a thread is blocked indefinitely if the lock is not released.
+        //6.Read-write locks not supported: intrinsic locks do not support read-write locks, which allow multiple threads to read a resource concurrently while ensuring exclusive access for write operations.
+        //synchronize cannot distinguish between read and write operations on a shared resource hence leading to unnecessary blocking.
     }
 
     //1. Object level lock: when a thread is executing a synchronized instance method/block,
