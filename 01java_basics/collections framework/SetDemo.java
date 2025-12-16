@@ -1,5 +1,5 @@
 import java.util.*;
-
+//Set: no duplicates allowed
 // | **Set Implementation** | **Order**       | **Duplicates** | **Performance** | **Notes**               |
 // | ---------------------- | --------------- | -------------- | --------------- | ----------------------- |
 // | **HashSet**            | No ordering     | ❌ Not allowed  | Fastest         | Uses HashMap internally |

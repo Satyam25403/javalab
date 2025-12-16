@@ -1,6 +1,6 @@
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
-
+//Map: key-value pairs, unique keys
 // | Implementation        | Use Case                 |
 // | --------------------- | ------------------------ |
 // | **HashMap**           | Fast, no order           |

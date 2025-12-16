@@ -1,27 +1,9 @@
-//collection framework provides a set of interfaces and classes to implement various datastructures and algorithms
-//Collection(List,Set(SortedSet),Queue(Deque));Map(SortedMap);Iterator(ListIterator)    are some interfaces
+import java.util.*;
+//collection interface: the root interface in collection hierarchy, parent interface of List,Set,Queue
+//provides blueprint for basic operations that are common to all collections
 
-import java.util.ArrayDeque;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.EnumSet;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.LinkedHashSet;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.PriorityQueue;
-import java.util.Queue;
-import java.util.Set;
-import java.util.TreeSet;
-
-
-//collection interface methods:size,isEmpty,contains(object o):O(n),add(E e),remove(Object o/int index),bool containsAll(Collection<> c)
-//bool addAll(Collection<> c):O(n), bool removeAll(Collection<> c){remove common elements}, bool retainAll(Collection<> c){to find intersection}, void clear:O(1), Object[] toArray
+//collection interface methods: size,isEmpty,contains(object o):O(n), add(E e), remove(Object o/int index), bool containsAll(Collection<> c)
+//bool addAll(Collection<> c):O(n), bool removeAll(Collection<> c){remove common elements}, bool retainAll(Collection<> c){to find intersection}, void clear:O(1), Object[] toArray()
 //all these are inherited by implementing classes and interfaces
 
 
@@ -41,16 +23,11 @@ public class CollectionsFramework {
 
 
 
-        //list interface extends colle tion interface and adds methods that are specific to lists(which are ordered collections allowing duplicates)
+        //list interface extends colletion interface and adds methods that are specific to lists(which are ordered collections allowing duplicates)
         //some methods that are in List interface but not in Collection interface
         //get(int index),set(int index,E element){to replace},add(int index,E element):O(n),remove(int index)overridden method of collection interface,
         //indexOf(Object o):O(n){returns -1 if not present},lastIndexOf(Object o),listIterator(),listIterator(int index){iterator which starts at a particular index}
         //subList(int fromIndex(inclusive),int toIndex(exclusive))
-        System.out.println(list.get(0));
-        list.set(1,200);
-        list.add(1,300);
-        list.remove(3);
-        System.out.println(list);
 
         List<String> fruits=new ArrayList<>();
         fruits.add("kiwi");fruits.add("Papaya");fruits.add("Mango");fruits.add("Apple");fruits.add("Orange");
@@ -108,9 +85,6 @@ public class CollectionsFramework {
         System.out.println(q.peek());
 
 
-
-
-
         ArrayDeque<Integer> q1=new ArrayDeque<>();       //doubly ended queue:any of the end can be considered as front and the other as rear
         //addFirst(E e),offerFirst(E e),addLast(E e),offerLast(E e);
         //removeFirst(),pollFirst(),removeFirst(),pollLast();
@@ -134,14 +108,8 @@ public class CollectionsFramework {
         queue.add(10);queue.add(20);queue.add(30);
         System.out.println(queue.poll());
 
-
-
-
-
         //PriorityQueue:elements added in any order but min(magnitude) priority comes out first:a min heap is followed
         Queue<Integer> pq=new PriorityQueue<>();
-        pq.add(30);pq.add(40);pq.add(10);pq.add(20);
-        System.out.println(pq);
 
         //if we dont want to use default property, we can pass comparator for the baasis of comparision
         Queue<Integer> pqr=new PriorityQueue<>((a,b)->b-a);//making higher magnitude higher priority
@@ -160,18 +128,7 @@ public class CollectionsFramework {
         //if we are using the type as some custom class objects,even objects with same attributes will be treated different
         //to avoid this we will be overriding equals() and hashCode() method based on deciding parameter
         Set<Integer> set=new HashSet();     //when we use get we dont know what element comes:they are arranged in random order
-        set.add(10);set.add(10);set.add(20);set.add(50);set.add(9);    //add(),remove(),contains() all have O(1) complexity
-        System.out.println(set);
-
-        Set<Integer> set1=new LinkedHashSet();      //to add elements in order implementing linked list internally
-        set1.add(10);set1.add(10);set1.add(20);     //add O(1),remove O(n)
-        System.out.println(set1);
-
-        Set<Integer> set2=new TreeSet<>();          //implemented using binary search tree :most methods complexity O(logn)
-        set2.add(10);set2.add(10);set2.add(20);set2.add(50);set2.add(9);
-        System.out.println(set2.contains(9));
-        System.out.println(set2);
-
+        
         EnumSet<Color> enset=EnumSet.allOf(Color.class);    //not used generally
     }
     enum Color{
@@ -195,9 +152,7 @@ public class CollectionsFramework {
     //keySet() returns set of all keys,values() returns the set of all values,entrySet() return set of all key/value mappings present in map
     static void mapImplementation(){
         Map<Integer,String> m=new HashMap<>();          //mostly time complexity is O(1)
-        m.put(1,"satyam");m.put(2,"nithish");m.put(3,"bhai");
-        m.put(1,"gongali");
-        m.remove(1);m.put(59,"ManchalaRaj");
+      
 
         Set<Integer> s=m.keySet();
         Collection<String> values=m.values();     //here values() returns a collection 

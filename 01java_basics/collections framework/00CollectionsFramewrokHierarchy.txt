@@ -11,12 +11,15 @@ Collections Framework
 │       ├── Set (no duplicates)
 │       │   ├── HashSet
 │       │   ├── LinkedHashSet
-│       │   └── TreeSet (SortedSet)
+│       │   ├── TreeSet (SortedSet)
+│       │   ├── EnumSet
+│       │   └── SortedSet
 │       │
 │       └── Queue (FIFO)
-│           ├── PriorityQueue
-│           ├── ArrayDeque (Deque)
-│           └── LinkedList (also implements List)
+│           ├── LinkedList
+│           ├── PriorityQueue                         ├──ArrayDeque
+│           ├── Deque (Deque)─────────────────────────├──LinkedList
+│           └── ConcurrentLinkedQueue                 ├──ConcurrentLinkedList
 │
 └── Map (not part of Collection, key-value pairs)
     ├── HashMap
