@@ -85,36 +85,48 @@ class ReentrantLockExample2{
 
 public class DeadLocks {
     public static void main(String[] args) {
-        SharedResource resource = new SharedResource(); // just an object/resource shared between threads
+        // SharedResource resource = new SharedResource(); // just an object/resource shared between threads
 
-        Thread t1 = new Thread(() -> resource.methodA(), "Thread-1");
-        Thread t2 = new Thread(() -> resource.methodB(), "Thread-2");
+        // Thread t1 = new Thread(() -> resource.methodA(), "Thread-1");
+        // Thread t2 = new Thread(() -> resource.methodB(), "Thread-2");
 
-        t1.start();
-        t2.start();
+        // t1.start();
+        // t2.start();
 
-        //example2: demonstrate that each lock should be paired with an unlock otherwise the lock will not be released.
-        //multiple locks on same resource by the same thread is allowed with ReentrantLock: one lock acquired followed by another lock acquisition and so on.
+        // //example2: demonstrate that each lock should be paired with an unlock otherwise the lock will not be released.
+        // //multiple locks on same resource by the same thread is allowed with ReentrantLock: one lock acquired followed by another lock acquisition and so on.
         // ReentrantLockExample2 example2 = new ReentrantLockExample2();
         // example2.outerMethod();
 
 
 
         //Two resources and two one acquired by each thread and each waiting for other to release
-        // Pen pen=new Pen();
-        // Paper paper=new Paper();
+        Pen pen=new Pen();
+        Paper paper=new Paper();
 
-        // Thread thread1=new Thread(new Task1(pen, paper),"<First thread>");
-        // Thread thread2=new Thread(new Task2(pen, paper),"<Second thread>");
+        Thread thread1=new Thread(new Task1(pen, paper),"<First thread>");
+        Thread thread2=new Thread(new Task2(pen, paper),"<Second thread>");
 
-        // thread1.start();
-        // thread2.start();
+        thread1.start();
+        thread2.start();
 
+        //to resolve deadlock there are many ways:
+        //method 1: make the order of acquiring locks consistent i.e. task1 has lock of pen and wants lock on paper, task2 has lock of paper and wants lock on pen
+        //so to solve make sure for both tasks locks are acquired on objects in same manner: task1 has lock of pen and wants lock on paper is ok...make task2 such that it should have the lock of pen and then can run
+        //having the lock of paper...so in task2 change run method like this:
+        // public void run(){
+        //     synchronized(pen){               //bring the lock of pen first, only then execute this
+        //         paper.writeWithPaperAndPen(pen);
+        //     }   
+        // }
+        //or you can do vice versa ; this way we can resolve deadlock
     }
 }
 class Pen{
+    //when a method is declared with synchronized keyword, the method will acquire the intrinsic lock of the object the method belongs to: here it acquires lock of pen object
     public synchronized void writeWithPenAndPaper(Paper paper){
         System.out.println(Thread.currentThread().getName()+" is using pen "+this+" and trying to get hold of paper");
+        //this will run if it has the lock of paper object
         paper.finishWriting();
     }
     public synchronized void finishWriting(){
@@ -122,8 +134,11 @@ class Pen{
     }
 }
 class Paper{
+    //when a method is declared with synchronized keyword, the method will acquire the intrinsic lock of the object the method belongs to: here it acquires lock of paper object
+
     public synchronized void writeWithPaperAndPen(Pen pen){
         System.out.println(Thread.currentThread().getName()+" is using paper "+this+" and trying to get hold of pen");
+        //this will run if it has the lock of pen object
         pen.finishWriting();
     }
     public synchronized void finishWriting(){
