@@ -1,3 +1,6 @@
+// Thread safety:
+// code in java is said to be thread-safe if it guarantees that it does not give any unexpected result, any race condition wont occur
+// when multiple threads access a particular block of code/that particular object: i.e. data corruption wont happen even if multiple threads are working
 class Counter{
     private int count=0;
 
