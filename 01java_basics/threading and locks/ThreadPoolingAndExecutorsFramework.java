@@ -23,42 +23,53 @@ import java.util.concurrent.TimeUnit;
 public class ThreadPoolingAndExecutorsFramework {
     public static void main(String[] args) {
         // 1. analyze time when things go synchronously: one after other factorial computation...sample run:10102 ms(10 secs)
-        // Long startTime=System.currentTimeMillis();
-        // for(int i=1;i<=10;i++){
-        //     //let us say we are performing a computationally heavy task for 10 times
-        //     System.out.println(factorial(i));
-        // }
-        // System.out.println("Time taken: "+(System.currentTimeMillis()-startTime));
+        Long startTime=System.currentTimeMillis();
+        for(int i=1;i<=10;i++){
+            //let us say we are performing a computationally heavy task for 10 times
+            System.out.println(factorial(i));
+        }
+        System.out.println("Time taken: "+(System.currentTimeMillis()-startTime));
 
         //2.Use threads: multi threading and analyze time...sample run:1090ms(1 secs)
-        // Thread[] threads=new Thread[10];
-        // Long startTime=System.currentTimeMillis();
-        // for(int i=1;i<=10;i++){
-        //     int finalI=i;       //so that a lately starting thread dont read the changing value of i in loop
-        //     threads[i-1]=new Thread(
-        //         ()->System.out.println(finalI+" factorial: "+factorial(finalI))
-        //     );
-        //     threads[i-1].start();
-        // }
-        // //wait for threads to end execution
-        // for(Thread thread: threads){
-        //     try{
-        //         thread.join();
-        //     }catch(Exception e){
-        //         Thread.currentThread().interrupt();
-        //     }
-        // }
-        // System.out.println("Time taken: "+(System.currentTimeMillis()-startTime));
+        Thread[] threads=new Thread[10];
+        Long startTime2=System.currentTimeMillis();
+        for(int i=1;i<=10;i++){
+            int finalI=i;       //so that a lately starting thread dont read the changing value of i in loop
+            threads[i-1]=new Thread(
+                ()->System.out.println(finalI+" factorial: "+factorial(finalI))
+            );
+            threads[i-1].start();
+        }
+        //wait for threads to end execution
+        for(Thread thread: threads){
+            try{
+                thread.join();
+            }catch(Exception e){
+                Thread.currentThread().interrupt();
+            }
+        }
+        System.out.println("Time taken: "+(System.currentTimeMillis()-startTime2));
 
         //3. Use executors framework: just give what to do(business logic) and reuse threads
-        Long startTime=System.currentTimeMillis();
+        Long startTime3=System.currentTimeMillis();
         ExecutorService executor=Executors.newFixedThreadPool(5);      //means create a pool of this number of threads
         for(int i=1;i<=10;i++){
             int finalI=i;    
             //just give business logic to submit method(takes in runnable)  
-            executor.submit(()->System.out.println(finalI+" factorial: "+factorial(finalI)));
+            executor.submit(()->System.out.println(finalI+" factorial: "+factorial(finalI)));               //returns Future<?> type
+
+            //submit: takes in either Runnable(no returntype: run() method, exception needs to be caught by try-catch)/Callable(any returntype(int/String etc): call method, throws exception in signature itself) for place of lambda function
+            //another signture of submit() allows to return something(custom) in case of successful execution...which will be accessed by future.get()
+            //executor.submit() returns a Future<?> type which can be used to:
+            // future.get(); future.get(timeout, timeUnit);
+            // future.isDone();         //wether completed task or not
+            // future.cancel(interrupt running? boolean);         //stop task
+            // future.isCancelled();
+            //some other methods of executor: executor.shutdownNow(), executor.isShutdown(), executor.isTerminated()...whether assigned tasks were completed after shutdown
+            //executor.invokeAll(Collection of callables(tasks i.e. lambdas), timeout: optional): blocks main thread till tasks are completed and returns a collection of Futures 
         }
         executor.shutdown();            //to shutdown the pool...because in future we can use the pool again if needed
+        
         //means it stops accepting new tasks submitted...u cant submit new task after this...and it has started orderly shutdown of pool
         //but before it shuts down it makes sure, that previously assigned tasks were completed...but that doesnt mean that lines in main thread after this wont execute till this shutdown happens
         // System.out.println("Time taken: "+(System.currentTimeMillis()-startTime))        //this line after that executor.shutdown() may execute even before the executor shutdown
@@ -77,7 +88,7 @@ public class ThreadPoolingAndExecutorsFramework {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        System.out.println("Time taken: "+(System.currentTimeMillis()-startTime));
+        System.out.println("Time taken: "+(System.currentTimeMillis()-startTime3));
     }
 
     static long factorial(int n){
