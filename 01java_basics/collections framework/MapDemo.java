@@ -1,75 +1,65 @@
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
-//Map: key-value pairs, unique keys
+//Map does not extend Collection interface(it is a seperate branch in Collections Framework)
+//Map: key-value pairs, unique keys(not even more number of nulls, only one null allowed)
 // | Implementation        | Use Case                 |
 // | --------------------- | ------------------------ |
 // | **HashMap**           | Fast, no order           |
 // | **LinkedHashMap**     | Maintain insertion order |
-// | **TreeMap**           | Sorted order             |
+// | **TreeMap**           | Sorted order(Natural order) |
 // | **ConcurrentHashMap** | Thread-safe              |
 
 // HashMap alone covers the essential Map DS.
 
 public class MapDemo {
+    //Internal structure of HashMap contains: Key, value, Hashfunction(convert a key into an index(bucket location)):collision handling using chaining, 
+    //Bucket(Array of LinkedLists)...Balanced Binary Search Tree for high collision scenarios(when collisions exceed a threshold(ex: at certain bucket, 
+    //linked list size becomes >8)...treefication occurs Java 8+) red black tree specifically
 
     // ----------------------------------------
-    // 1️⃣ Creating a Map (using HashMap implementation): No order, fast
+    // HashMap implementation: No order, fast
     // ----------------------------------------
     static void hashMapDemo() {
-        Map<String, Integer> map = new HashMap<>();
+        //load factor=0.75 (default), initial capacity=16 (default)
+        //when size exceeds capacity*load factor, rehashing occurs(doubling the capacity and redistributing of existing entries)
+        HashMap<String, Integer> map = new HashMap<>();
 
-        // ----------------------------------------
-        // 2️⃣ Adding key-value pairs
-        // ----------------------------------------
         map.put("Apple", 100);
         map.put("Banana", 40);
         map.put("Mango", 80);
         map.put("Orange", 60);
+        //NOTE: if key is an object of custom class and we want to use that as key in map, we must override equals() and hashCode() methods of Object class in that custom class to make objects having same content as equal keys
+        //because HashMap uses these methods to check for key equality and to determine the bucket location respectively. otherwise even two different objects created with same values will be treated as different keys
 
         System.out.println("Initial Map: " + map);
 
-        // ----------------------------------------
-        // 3️⃣ Updating a value (same key)
-        // ----------------------------------------
         map.put("Apple", 120); // Overwrites old value
         System.out.println("After Updating Apple: " + map);
 
-        // ----------------------------------------
-        // 4️⃣ Accessing value using key
-        // ----------------------------------------
         System.out.println("Price of Mango: " + map.get("Mango"));
 
-        // ----------------------------------------
-        // 5️⃣ Checking if key/value exists
-        // ----------------------------------------
         System.out.println("Contains key 'Banana'? " + map.containsKey("Banana"));
         System.out.println("Contains value 60? " + map.containsValue(60));
 
-        // ----------------------------------------
-        // 6️⃣ Removing a key
-        // ----------------------------------------
         map.remove("Orange");
         System.out.println("After Removing Orange: " + map);
 
-        // ----------------------------------------
-        // 7️⃣ Traversal Methods
-        // ----------------------------------------
-
-        // A) Iterating over keys
+        // Iterating over keys(.keySet() returns a set)
         System.out.println("\nIterating over keys:");
         for (String key : map.keySet()) {
             System.out.println(key);
         }
 
-        // B) Iterating over values
+        // Iterating over values(values may or maynot be unique hence returns a Collection)
         System.out.println("\nIterating over values:");
         for (Integer value : map.values()) {
             System.out.println(value);
         }
 
-        // C) Iterating over key-value pairs (Most Used)
+        // Iterating over key-value pairs (Most Used)
         System.out.println("\nIterating over entries:");
-        for (Map.Entry<String, Integer> entry : map.entrySet()) {
+        Set<Map.Entry<String, Integer>> entries = map.entrySet();
+        for (Map.Entry<String, Integer> entry : entries) {
             System.out.println(entry.getKey() + " → " + entry.getValue());
         }
 
@@ -77,25 +67,16 @@ public class MapDemo {
         System.out.println("\nUsing forEach:");
         map.forEach((key, value) -> System.out.println(key + " costs " + value));
 
-        // ----------------------------------------
-        // 8️⃣ Getting Size
-        // ----------------------------------------
         System.out.println("\nSize of map: " + map.size());
 
-        // ----------------------------------------
-        // 9️⃣ Checking if empty
-        // ----------------------------------------
         System.out.println("Is map empty? " + map.isEmpty());
 
-        // ----------------------------------------
-        // 🔟 Clearing the map
-        // ----------------------------------------
         map.clear();
         System.out.println("After clear(): " + map);
     }
     
     // ----------------------------------------
-    // 2. Creating a Map (using LinkedHashMap implementation): insertion order preserved, moderate speed
+    // 2.LinkedHashMap implementation : insertion order preserved, moderate speed
     // ----------------------------------------
     static void linkedHashMapDemo() {
         Map<String, Integer> map = new LinkedHashMap<>();

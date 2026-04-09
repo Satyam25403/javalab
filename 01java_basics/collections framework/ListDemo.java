@@ -21,7 +21,7 @@ class StringLengthComparator implements Comparator<String> {
 public class ListDemo {
 
     // -----------------------------------------
-    // 1️⃣ ArrayList Demo: just a dynamic array, resize factor: 1.5x
+    // ArrayList Demo: just a dynamic array, resize factor: 1.5x
     // -----------------------------------------
     static void arrayListDemo() {
         //O(n) for add/remove in worst case due to resizing and shifting elements, amortized O(1) for add at end
@@ -136,7 +136,7 @@ public class ListDemo {
     }
 
     // -----------------------------------------
-    // 2️⃣ LinkedList Demo: stores doubly linked list internally, stores elements as nodes with data and pointers to next and previous nodes
+    // LinkedList Demo: stores doubly linked list internally, stores elements as nodes with data and pointers to next and previous nodes
     // -----------------------------------------
     static void linkedListDemo() {
         //Better for frequent insertions and deletions compared to ArrayList
@@ -189,10 +189,11 @@ public class ListDemo {
     }
 
     // -----------------------------------------
-    // 4️⃣ Stack Demo:extends Vector, LIFO structure hence can cause overhead since extended from Vector
+    // Stack Demo:extends Vector, LIFO structure hence can cause overhead since extended from Vector
     // -----------------------------------------
     static void stackDemo() {
         //Recommended way for implementing stack is using Deque interface with ArrayDeque class
+        //Deque<String> stack = new ArrayDeque<>(); for better performance    
         Stack<String> stack = new Stack<>();
 
         stack.push("A");
@@ -229,7 +230,7 @@ public class ListDemo {
     }
 
     // -----------------------------------------
-    // 3️⃣ Vector Demo: only use when thread-safety is required
+    // Vector Demo: only use when thread-safety is required
     // -----------------------------------------
     static void vectorDemo() {
         //no data corruption in multithreaded env as methods are synchronized, but may have performance overhead due to synchronization
@@ -262,10 +263,12 @@ public class ListDemo {
     }
 
     // -----------------------------------------
-    // 5️⃣ CopyOnWriteArrayList Demo: thread-safe variant of ArrayList
+    //  CopyOnWriteArrayList Demo: thread-safe variant of ArrayList
     // -----------------------------------------
     static void copyOnWriteArrayListDemo() {
         //thread-safe variant of ArrayList where all mutative(write) operations (add, set, remove and so on) are implemented by making a fresh copy of the underlying array instead of modifying the existing list
+        //and read operations are carried on the snapshot of the array list
+        //Ensuring that the other threads reading the list remain unaffected while its being modified
         //suitable for scenarios where reads are more frequent than writes
         //Read operations do not require locking and can proceed concurrently with write operations: hence will be fast and direct
         CopyOnWriteArrayList<String> cowList = new CopyOnWriteArrayList<>();
@@ -286,8 +289,52 @@ public class ListDemo {
 
         // Traversal
         System.out.println("Iterating CopyOnWriteArrayList:");
-        for (String item : cowList)
+        for (String item : cowList){
             System.out.println(item);
+            cowList.add("Four"); //can add/remove elements during iteration without ConcurrentModificationException, 
+            //as iterator is on a snapshot of the array at the time of iterator creation
+            //this will throw an exception if list implementation is done using any other class(ex:ArrayList) other than CopyOnWriteArrayList
+            //in multi threaded env CopyOnWriteArrayList is preferred for such scenarios where threads are reading and writing concurrently
+        }
+
+
+        // example 
+        List<String> sharedList=new CopyOnWriteArrayList<>();
+        sharedList.add("Item1");
+        sharedList.add("Item2");
+        sharedList.add("Item3");    
+        Thread readerThread = new Thread(()->{
+            try{
+                while(true){
+                    for(String item:sharedList){
+                        System.out.println("Reading item: "+ item);
+                        Thread.sleep(500);
+                    }
+                }
+            }catch(InterruptedException e){
+                System.out.println("Exception in reader thread: "+e);
+            }
+        });
+        Thread writerThread = new Thread(()->{
+            try{
+                Thread.sleep(500);
+                sharedList.add("Item4");
+                System.out.println("Item4 added to shared list");
+
+                Thread.sleep(500);
+                sharedList.remove("Item1");
+                System.out.println("Removed Item1 from list");
+            }catch(InterruptedException e){
+                System.out.println("Exception in writer thread: "+e);
+            }
+        });
+
+        readerThread.start();
+        writerThread.start();
+    }
+
+    public static void main(String[] args) {
+        copyOnWriteArrayListDemo();
     }
 }
 

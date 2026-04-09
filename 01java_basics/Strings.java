@@ -11,7 +11,7 @@ public class Strings {
     //only static methods can call static methods
 
 
-    //if this were not declared static main method call tho this method will produce error:
+    //if this were not declared static main method call to this method will produce error:
     //non static method cannot be referenced from a static method
 
     public static int avg(int a,int b){ //parameters

@@ -3,7 +3,7 @@
 //interfaces are another way of achieving abstraction; Used to define contracts that implementing classes must fulfill
 
 //MULTIPLE INHERITANCE is not allowed in java;but this can be overcome by interfaces
-//one interface can implement two or more interfaces
+//one class can implement two or more interfaces
 
 interface Animal{
     

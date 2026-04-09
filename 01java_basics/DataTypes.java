@@ -72,7 +72,7 @@ public class DataTypes{
         byte a2 = 100;
         byte b2 = 30;
         byte sum2 = (byte)(a2 + b2); // 130 → overflow → -126
-
+        
     }
 
 }
