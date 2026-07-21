@@ -130,11 +130,3 @@ We now trace **exactly** what happens, object by object, from the moment the bro
 3. **JSPs are, under the hood, just Servlets** — generated and compiled by Tomcat automatically. This single fact resolves a huge number of "how is JSP different from Servlet, really?" confusions you'll have going into Module 2.
 4. **Request attributes (`setAttribute`) are the bridge** connecting Controller logic to View rendering in the MVC pattern — this is the mechanism, not magic.
 
----
-
-That completes **Step 8: Execution Flow**. You now have a complete, traceable mental model of the entire request lifecycle for an MVC-based Servlet application — from raw TCP bytes to rendered HTML.
-
-**Quick understanding check:**
-1. Why doesn't the browser's URL change after `RequestDispatcher.forward()`, even though a completely different file (`welcome.jsp`) produced the actual response?
-2. At what point does Tomcat actually parse the POST request body — immediately on arrival, or lazily? Why does this matter?
-3. Is a new `LoginServlet` object created for every login attempt? Justify your answer using this trace.
